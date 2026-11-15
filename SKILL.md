@@ -8,6 +8,8 @@ description: Nghiên cứu video tham chiếu, chọn công thức text/motion/a
 Skill này được tạo ngày 15/11/2026 để kết nối sáu tài liệu nghiên cứu trên Drive với repo. Đây không phải bản SKILL.md cũ được khôi phục.
 
 ## Quy trình
+Đọc [quy tắc vận dụng đã đúc rút](docs/editing-rules.md) trước khi lập timeline. Chọn pattern theo chức năng cảnh; không mặc định dùng card cho mọi câu. Nếu chỉ triển khai một phần cơ chế của pattern, ghi rõ là biến thể.
+
 1. Đọc [ngữ cảnh dự án](docs/project-context.md); xác định footage, lời thoại, mục tiêu, thời lượng và định dạng đầu ra theo yêu cầu hiện tại.
 2. Khi nghiên cứu video, đọc [phân tích tham chiếu](references/01-reference-analysis.txt). Gắn nhận xét với timestamp; phân biệt OBS (quan sát), MEAS (đo), DOC (nguồn), REC (đề xuất), UNKNOWN (chưa xác minh).
 3. Chọn kỹ thuật từ [text](references/02-text-animation.txt), [motion](references/03-motion-graphics.txt) và [sound](references/04-sound-effects.txt) theo ý nghĩa nội dung.
