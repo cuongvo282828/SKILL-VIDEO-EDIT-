@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1.0.0",
+  "styleId": "educational-editorial-v01",
+  "project": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationFrames": 360
+  },
+  "style": {
+    "fontRoles": {
+      "body": "Noto Sans",
+      "emphasis": "Noto Serif"
+    },
+    "colors": {
+      "paper": "#F2EEE5",
+      "ink": "#18222B",
+      "accent": "#369EC1"
+    },
+    "safeAreaPx": {
+      "left": 72,
+      "right": 180,
+      "top": 160,
+      "bottom": 300
+    }
+  },
+  "effects": [
+    {
+      "id": "T04",
+      "kind": "text",
+      "version": "0.1.0",
+      "parameterStatus": "recommended_not_extracted",
+      "durationFrames": 8,
+      "keyframes": [
+        {
+          "f": 0,
+          "scale": 0.86,
+          "opacity": 0
+        },
+        {
+          "f": 3,
+          "scale": 1.06,
+          "opacity": 1
+        },
+        {
+          "f": 7,
+          "scale": 1,
+          "opacity": 1
+        }
+      ],
+      "anchor": "center",
+      "interpolation": "piecewise_ease_out",
+      "observations": [],
+      "sources": [
+        "REM_SPRING",
+        "AE_EASE"
+      ]
+    }
+  ],
+  "audioAssets": [
+    {
+      "id": "pop_pending",
+      "uri": null,
+      "creator": null,
+      "sourceUrl": null,
+      "licenseId": null,
+      "commercialUse": null,
+      "reviewStatus": "pending",
+      "anchorMs": 40
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_001",
+      "patternId": "P01",
+      "effectId": "T04",
+      "startFrame": 30,
+      "endFrameExclusive": 72,
+      "text": "Một ý chính",
+      "positionNorm": {
+        "x": 0.44,
+        "y": 0.35
+      },
+      "visualAnchorOffsetFrames": 3,
+      "audio": {
+        "assetId": "pop_pending",
+        "enabled": false,
+        "startMs": 1060,
+        "gainDb": -12
+      },
+      "evidenceStatus": "REC",
+      "reviewRequired": true
+    }
+  ],
+  "references": [
+    {
+      "sourceFile": "snaptik_7702445259443178759_v3.mp4",
+      "timeRangeSec": [
+        0.1,
+        0.2
+      ],
+      "observed": "Partial character reveal; not evidence of bounce or pop audio."
+    }
+  ],
+  "sources": {
+    "AE_EASE": {
+      "title": "Adobe — Speed and Graph Editor",
+      "url": "https://helpx.adobe.com/after-effects/desktop/animate-in-after-effects/speed-between-keyframes/speed.html"
+    },
+    "REM_SPRING": {
+      "title": "Remotion — spring()",
+      "url": "https://www.remotion.dev/docs/spring"
+    }
+  }
+}

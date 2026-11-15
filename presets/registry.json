@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "1.0.0",
+  "parameterStatus": "recommended_not_extracted",
+  "effectIds": {
+    "text": [
+      "T01",
+      "T02",
+      "T03",
+      "T04",
+      "T05",
+      "T06",
+      "T07",
+      "T08",
+      "T09",
+      "T10",
+      "T11",
+      "T12",
+      "T13"
+    ],
+    "motion": [
+      "M01",
+      "M02",
+      "M03",
+      "M04",
+      "M05",
+      "M06",
+      "M07",
+      "M08",
+      "M09",
+      "M10",
+      "M11",
+      "M12",
+      "M13",
+      "M14",
+      "M15",
+      "M16",
+      "M17",
+      "M18",
+      "M19"
+    ],
+    "sound": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S20"
+    ]
+  },
+  "patterns": [
+    {
+      "id": "P01",
+      "name": "Keyword highlight",
+      "components": [
+        "T04",
+        "M05",
+        "S06"
+      ]
+    },
+    {
+      "id": "P02",
+      "name": "Typewriter prompt",
+      "components": [
+        "T03",
+        "M14",
+        "S08"
+      ]
+    },
+    {
+      "id": "P03",
+      "name": "Slide title",
+      "components": [
+        "T07",
+        "M05",
+        "S01"
+      ]
+    },
+    {
+      "id": "P04",
+      "name": "Blur chapter",
+      "components": [
+        "T01",
+        "M05",
+        "S03"
+      ]
+    },
+    {
+      "id": "P05",
+      "name": "Checklist build",
+      "components": [
+        "T02",
+        "M14",
+        "S10"
+      ]
+    },
+    {
+      "id": "P06",
+      "name": "Logo comparison / ranking",
+      "components": [
+        "T13",
+        "M15",
+        "S07"
+      ]
+    },
+    {
+      "id": "P07",
+      "name": "Selection-frame emphasis",
+      "components": [
+        "T13",
+        "M14",
+        "S11"
+      ]
+    },
+    {
+      "id": "P08",
+      "name": "Document + presenter PIP",
+      "components": [
+        "T07",
+        "M14",
+        "S02"
+      ]
+    },
+    {
+      "id": "P09",
+      "name": "Product spec callout",
+      "components": [
+        "T13",
+        "M16",
+        "S07"
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "Behind-subject title",
+      "components": [
+        "T08",
+        "M07",
+        "S01"
+      ]
+    },
+    {
+      "id": "P11",
+      "name": "Punch-in point",
+      "components": [
+        "T04",
+        "M11",
+        "S05"
+      ]
+    },
+    {
+      "id": "P12",
+      "name": "Before / after comparison",
+      "components": [
+        "T13",
+        "M05",
+        "S02"
+      ]
+    }
+  ]
+}

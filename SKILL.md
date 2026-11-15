@@ -8,6 +8,8 @@ description: Nghiên cứu video tham chiếu, chọn công thức text/motion/a
 Skill này được tạo ngày 15/11/2026 để kết nối sáu tài liệu nghiên cứu trên Drive với repo. Đây không phải bản SKILL.md cũ được khôi phục.
 
 ## Quy trình
+Tham khảo [nghiên cứu đối chiếu hai video](analysis/reference-study-2026-11-15/README.md), [registry](presets/registry.json) và [schema event](presets/text-event.schema.json) khi lập breakdown hoặc blueprint. Xác định rõ video tham chiếu và video cần dựng; một tài liệu đính kèm không tự mở rộng phạm vi yêu cầu hiện tại.
+
 Đọc [quy tắc vận dụng đã đúc rút](docs/editing-rules.md) trước khi lập timeline. Chọn pattern theo chức năng cảnh; không mặc định dùng card cho mọi câu. Nếu chỉ triển khai một phần cơ chế của pattern, ghi rõ là biến thể.
 
 1. Đọc [ngữ cảnh dự án](docs/project-context.md); xác định footage, lời thoại, mục tiêu, thời lượng và định dạng đầu ra theo yêu cầu hiện tại.

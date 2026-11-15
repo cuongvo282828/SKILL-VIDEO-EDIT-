@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI editing event — minimal contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "patternId",
+    "effectId",
+    "startFrame",
+    "endFrameExclusive",
+    "text",
+    "positionNorm",
+    "visualAnchorOffsetFrames",
+    "audio",
+    "evidenceStatus",
+    "reviewRequired"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "patternId": {
+      "type": "string",
+      "pattern": "^P[0-9]{2}$"
+    },
+    "effectId": {
+      "type": "string",
+      "pattern": "^T[0-9]{2}$"
+    },
+    "startFrame": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "endFrameExclusive": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "positionNorm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "visualAnchorOffsetFrames": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetId",
+        "enabled",
+        "startMs",
+        "gainDb"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "startMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "gainDb": {
+          "type": "number",
+          "minimum": -60,
+          "maximum": 12
+        }
+      }
+    },
+    "evidenceStatus": {
+      "enum": [
+        "OBS",
+        "MEAS",
+        "DOC",
+        "REC",
+        "UNKNOWN"
+      ]
+    },
+    "reviewRequired": {
+      "type": "boolean"
+    }
+  }
+}

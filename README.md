@@ -4,6 +4,8 @@ Kho lưu nghiên cứu video, thư viện công thức dựng và skill hướng
 
 Bắt đầu tại [SKILL.md](SKILL.md). Xem [ngữ cảnh dự án và video final](docs/project-context.md).
 
+Đã bổ sung [nghiên cứu trực tiếp hai video tham chiếu](analysis/reference-study-2026-11-15/README.md), [registry và hợp đồng timeline](presets/README.md), cùng script phân tích và kiểm dữ liệu. Các preset là đề xuất có điều kiện; phạm vi đã kiểm và phần chưa xác minh được ghi rõ trong báo cáo.
+
 ## Tài liệu
 | Bản lưu trong repo | Nội dung |
 | --- | --- |

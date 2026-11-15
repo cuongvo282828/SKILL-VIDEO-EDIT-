@@ -1,0 +1,94 @@
+{
+  "v1": {
+    "sha256": "9f8dc77ebe6063016bc71f5055a0d021e791bdd0227f96428cbccee6cf304fa2",
+    "duration": 92.066667,
+    "width": 576,
+    "height": 1024,
+    "fps": "30/1",
+    "frames": 2762,
+    "audio": {
+      "codec": "aac",
+      "sample_rate": "44100",
+      "channels": 2
+    },
+    "loudness": {
+      "input_i": "-12.21",
+      "input_tp": "-0.54",
+      "input_lra": "2.50"
+    },
+    "scene_detection_threshold": 0.28,
+    "scene_candidates": [
+      3.933333,
+      13.066667,
+      13.1,
+      14.7,
+      45.366667,
+      48.733333,
+      53.333333,
+      60.833333,
+      63.566667,
+      67.433333,
+      73.0,
+      82.866667,
+      82.9
+    ],
+    "candidate_clusters_150ms": [
+      3.933333,
+      13.066667,
+      14.7,
+      45.366667,
+      48.733333,
+      53.333333,
+      60.833333,
+      63.566667,
+      67.433333,
+      73.0,
+      82.866667
+    ],
+    "warning": "Candidates are not a ground-truth shot list.",
+    "asr": {
+      "model": "faster-whisper small, int8 CPU, vi",
+      "segments": 24,
+      "status": "unreviewed; many proper-name and wording errors; no forced-alignment certification"
+    }
+  },
+  "v2": {
+    "sha256": "b0b3bd45474511cb7bf98e6f00772c6dec95e785ac4ef46f9066d2b202662cda",
+    "duration": 97.966667,
+    "width": 576,
+    "height": 1024,
+    "fps": "30/1",
+    "frames": 2939,
+    "audio": {
+      "codec": "aac",
+      "sample_rate": "44100",
+      "channels": 2
+    },
+    "loudness": {
+      "input_i": "-20.11",
+      "input_tp": "-4.99",
+      "input_lra": "3.50"
+    },
+    "scene_detection_threshold": 0.28,
+    "scene_candidates": [
+      45.133333,
+      58.7,
+      85.833333,
+      91.966667,
+      94.4
+    ],
+    "candidate_clusters_150ms": [
+      45.133333,
+      58.7,
+      85.833333,
+      91.966667,
+      94.4
+    ],
+    "warning": "Candidates are not a ground-truth shot list.",
+    "asr": {
+      "model": "faster-whisper small, int8 CPU, vi",
+      "segments": 18,
+      "status": "unreviewed; many proper-name and wording errors; no forced-alignment certification"
+    }
+  }
+}
