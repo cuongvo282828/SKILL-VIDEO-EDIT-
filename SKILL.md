@@ -25,4 +25,4 @@ Skill này được tạo ngày 15/11/2026 để kết nối sáu tài liệu ng
 - Video Hanoi Sky được người dùng xác nhận là final được liên kết trong ngữ cảnh dự án. Chưa xác minh nó đã áp dụng toàn bộ thư viện nghiên cứu.
 
 ## Nguồn và cập nhật
-[sources.json](sources.json) lưu ID, URL và thời gian sửa nguồn. Các file references là snapshot văn bản; ảnh minh chứng và bố cục bảng gốc nằm ở Google Docs. Kết nối này chưa tự đồng bộ và không tự cài skill vào ChatGPT.
+[sources.json](sources.json) lưu ID, URL và thời gian sửa nguồn. Các file references là snapshot văn bản; ảnh minh chứng và bố cục bảng gốc nằm ở Google Docs. Codex automation kiểm tra mỗi giờ và đồng bộ một chiều Drive → GitHub; không tự cài skill vào ChatGPT.

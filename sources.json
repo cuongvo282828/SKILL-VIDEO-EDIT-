@@ -1,7 +1,7 @@
 {
   "source_folder": "https://drive.google.com/drive/folders/1Jh5fsHjQbZDDMZJzpoSa2DOncoNzGxX_",
   "snapshot_date": "2026-11-15",
-  "sync_mode": "manual_snapshot",
+  "sync_mode": "scheduled_one_way",
   "format": "Plain text from Google Drive connector; embedded images and native table layout are available in source documents.",
   "sources": [
     {
@@ -9,42 +9,59 @@
       "title": "01 — Video Editing Knowledge Base & Reference Analysis v0.1",
       "url": "https://docs.google.com/document/d/1gFz02GSi8kUWgWb0I6JnrgHgpapYnzqKYLke8LCitXU/edit",
       "path": "references/01-reference-analysis.txt",
-      "source_modified_time": "2026-11-15T05:26:55.463Z"
+      "source_modified_time": "2026-11-15T05:26:55.463Z",
+      "synced_content_sha256": "21a7948ec1439445e5557b683515668069d3cfb50cca78e9919f7359115b8e2e"
     },
     {
       "id": "1Z6NvNQxJAxZpNCGMSadu5SGNjsbMLbA7_zNtyr-Z2C4",
       "title": "02 — Text Animation Library | AI Video Editing v0.1",
       "url": "https://docs.google.com/document/d/1Z6NvNQxJAxZpNCGMSadu5SGNjsbMLbA7_zNtyr-Z2C4/edit",
       "path": "references/02-text-animation.txt",
-      "source_modified_time": "2026-11-15T05:25:35.675Z"
+      "source_modified_time": "2026-11-15T05:25:35.675Z",
+      "synced_content_sha256": "24ac58e39a26e8dd0a66b5693e12989ba970203da0ecb5923032e07a11772af9"
     },
     {
       "id": "19Y4oAwUxvdxSIohYMw6-ZxYhNoJSriuAsvxzKfx6Jvg",
       "title": "03 — Motion Graphics Library | AI Video Editing v0.1",
       "url": "https://docs.google.com/document/d/19Y4oAwUxvdxSIohYMw6-ZxYhNoJSriuAsvxzKfx6Jvg/edit",
       "path": "references/03-motion-graphics.txt",
-      "source_modified_time": "2026-11-15T05:25:41.037Z"
+      "source_modified_time": "2026-11-15T05:25:41.037Z",
+      "synced_content_sha256": "bb41ffcd2a426128367dfd45e5e7f9c47fa603f9939892d88178b115abbf431d"
     },
     {
       "id": "1J3XN-BctAlXWa7Of9dEJWFyZHiaK-AIQrJPGzeTHal8",
       "title": "04 — Sound Effects Library | AI Video Editing v0.1",
       "url": "https://docs.google.com/document/d/1J3XN-BctAlXWa7Of9dEJWFyZHiaK-AIQrJPGzeTHal8/edit",
       "path": "references/04-sound-effects.txt",
-      "source_modified_time": "2026-11-15T05:25:46.498Z"
+      "source_modified_time": "2026-11-15T05:25:46.498Z",
+      "synced_content_sha256": "e9ca2f3c60baeb22e30956a7da990075ed94290cda4b115fda4b64122d37b094"
     },
     {
       "id": "11N5qq2xRmyhXliaVZ3TdACaBry1JIWVhCcA_lGLkZr4",
       "title": "05 — Editing Combination Library | AI Video Editing v0.1",
       "url": "https://docs.google.com/document/d/11N5qq2xRmyhXliaVZ3TdACaBry1JIWVhCcA_lGLkZr4/edit",
       "path": "references/05-editing-combinations.txt",
-      "source_modified_time": "2026-11-15T05:25:52.748Z"
+      "source_modified_time": "2026-11-15T05:25:52.748Z",
+      "synced_content_sha256": "55a715227a8499b4102cb3f83f30f442169dd4e50b618ad5ff159f7d66095656"
     },
     {
       "id": "1ISUjRrF3zk3QBC59Eh5Po_VSva0bUvlDJdKg3HdHsPA",
       "title": "06 — AI Editing Automation Roadmap & Data Contract v0.1",
       "url": "https://docs.google.com/document/d/1ISUjRrF3zk3QBC59Eh5Po_VSva0bUvlDJdKg3HdHsPA/edit",
       "path": "references/06-automation-roadmap.txt",
-      "source_modified_time": "2026-11-15T05:26:10.733Z"
+      "source_modified_time": "2026-11-15T05:26:10.733Z",
+      "synced_content_sha256": "90bb4637454c2f0498834141fc79c1dd026ab5e55e5b723b6f13d4f28695820b"
+    },
+    {
+      "id": "1K5n2CkiKQLOzqUDCG2_1_wiFE_NJcSgc",
+      "title": "Editor LOTTE Hanoi Sky - Ghi nhớ dự án và video final.md",
+      "url": "https://drive.google.com/file/d/1K5n2CkiKQLOzqUDCG2_1_wiFE_NJcSgc/view",
+      "path": "docs/project-context.md",
+      "synced_content_sha256": "474a4480c37b04755700b36bce6f76e94adbd3a63fa0826542c6fd685ee649d5"
     }
-  ]
+  ],
+  "sync_direction": "Google Drive -> GitHub",
+  "sync_frequency": "hourly",
+  "sync_service": "Codex automation",
+  "automation_id": "Automation_293777b6f69881919c1298633056c2f7"
 }
