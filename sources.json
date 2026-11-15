@@ -1,0 +1,50 @@
+{
+  "source_folder": "https://drive.google.com/drive/folders/1Jh5fsHjQbZDDMZJzpoSa2DOncoNzGxX_",
+  "snapshot_date": "2026-11-15",
+  "sync_mode": "manual_snapshot",
+  "format": "Plain text from Google Drive connector; embedded images and native table layout are available in source documents.",
+  "sources": [
+    {
+      "id": "1gFz02GSi8kUWgWb0I6JnrgHgpapYnzqKYLke8LCitXU",
+      "title": "01 — Video Editing Knowledge Base & Reference Analysis v0.1",
+      "url": "https://docs.google.com/document/d/1gFz02GSi8kUWgWb0I6JnrgHgpapYnzqKYLke8LCitXU/edit",
+      "path": "references/01-reference-analysis.txt",
+      "source_modified_time": "2026-11-15T05:26:55.463Z"
+    },
+    {
+      "id": "1Z6NvNQxJAxZpNCGMSadu5SGNjsbMLbA7_zNtyr-Z2C4",
+      "title": "02 — Text Animation Library | AI Video Editing v0.1",
+      "url": "https://docs.google.com/document/d/1Z6NvNQxJAxZpNCGMSadu5SGNjsbMLbA7_zNtyr-Z2C4/edit",
+      "path": "references/02-text-animation.txt",
+      "source_modified_time": "2026-11-15T05:25:35.675Z"
+    },
+    {
+      "id": "19Y4oAwUxvdxSIohYMw6-ZxYhNoJSriuAsvxzKfx6Jvg",
+      "title": "03 — Motion Graphics Library | AI Video Editing v0.1",
+      "url": "https://docs.google.com/document/d/19Y4oAwUxvdxSIohYMw6-ZxYhNoJSriuAsvxzKfx6Jvg/edit",
+      "path": "references/03-motion-graphics.txt",
+      "source_modified_time": "2026-11-15T05:25:41.037Z"
+    },
+    {
+      "id": "1J3XN-BctAlXWa7Of9dEJWFyZHiaK-AIQrJPGzeTHal8",
+      "title": "04 — Sound Effects Library | AI Video Editing v0.1",
+      "url": "https://docs.google.com/document/d/1J3XN-BctAlXWa7Of9dEJWFyZHiaK-AIQrJPGzeTHal8/edit",
+      "path": "references/04-sound-effects.txt",
+      "source_modified_time": "2026-11-15T05:25:46.498Z"
+    },
+    {
+      "id": "11N5qq2xRmyhXliaVZ3TdACaBry1JIWVhCcA_lGLkZr4",
+      "title": "05 — Editing Combination Library | AI Video Editing v0.1",
+      "url": "https://docs.google.com/document/d/11N5qq2xRmyhXliaVZ3TdACaBry1JIWVhCcA_lGLkZr4/edit",
+      "path": "references/05-editing-combinations.txt",
+      "source_modified_time": "2026-11-15T05:25:52.748Z"
+    },
+    {
+      "id": "1ISUjRrF3zk3QBC59Eh5Po_VSva0bUvlDJdKg3HdHsPA",
+      "title": "06 — AI Editing Automation Roadmap & Data Contract v0.1",
+      "url": "https://docs.google.com/document/d/1ISUjRrF3zk3QBC59Eh5Po_VSva0bUvlDJdKg3HdHsPA/edit",
+      "path": "references/06-automation-roadmap.txt",
+      "source_modified_time": "2026-11-15T05:26:10.733Z"
+    }
+  ]
+}

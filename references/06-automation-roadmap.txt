@@ -1,0 +1,538 @@
+06 — AI Editing Automation Roadmap & Data Contract v0.1
+Phiên bản 0.1 • 15/11/2026 • Tiếng Việt. OBS = quan sát trực tiếp; MEAS = đo bằng công cụ; DOC = tài liệu nguồn; REC = công thức đề xuất; UNKNOWN = chưa xác minh. Thông số animation trong thư viện là REC, không phải keyframe gốc trích xuất từ MP4.
+Điều hướng bộ tài liệu
+01 — Video Editing Knowledge Base & Reference Analysis v0.1
+02 — Text Animation Library | AI Video Editing v0.1
+03 — Motion Graphics Library | AI Video Editing v0.1
+04 — Sound Effects Library | AI Video Editing v0.1
+05 — Editing Combination Library | AI Video Editing v0.1
+06 — AI Editing Automation Roadmap & Data Contract v0.1
+Module F — kiến trúc khuyến nghị
+Bắt đầu bằng AI lập kế hoạch + renderer xác định theo frame. Với hai mẫu này, core nên là caption, card, PIP, highlight, blur chapter và B-roll; chưa cần camera solve hoặc text-to-video. Mô hình chọn ý nhấn và scene type, nhưng không sinh mã tùy ý hoặc tự phát minh dữ liệu sản phẩm/nguồn.
+Pipeline: ingest → probe/hash → ASR/word alignment → semantic segmentation → layout/safe-area/face constraints → chọn pattern → event timeline JSON → render preview → đo/kiểm → người duyệt → xuất bản master. Đây là kiến trúc đề xuất; phiên nghiên cứu này chỉ chạy khâu ingest/probe/frame/audio measurement và kiểm hợp đồng dữ liệu mẫu.
+Đánh giá công nghệ
+
+
+Công nghệ
+	Vai trò phù hợp
+	Tự động hóa / giới hạn
+	Trạng thái
+	Remotion
+	Renderer text/UI/card/PIP deterministic theo frame
+	Tốt cho template và caption; không tự giải tracking/roto hay chọn nội dung đúng. Pin các package cùng phiên bản.
+	DOC; chưa render preset.
+	FFmpeg
+	Decode/encode, probe, trim, overlay, blur, audio mix/loudness
+	Đã chạy trên hai file; drawtext không thay toàn bộ layout engine; variable speed cần time map đúng.
+	MEAS thực thi media analysis.
+	Python
+	Timeline planning, Unicode, ASR adapter, audio/vision feature extraction, QA
+	Phù hợp orchestration/measurements; không tự có semantic understanding hoặc GUI editor.
+	Đã dùng NumPy/SciPy/Pillow/Matplotlib.
+	After Effects scripting
+	Dựng layer/keyframe/expression, cập nhật template; render từ project
+	ExtendScript/JSX có tài liệu; UXP AE hiện có docs beta, phải xác minh version/API cụ thể. Không coi docs beta là hỗ trợ đầy đủ mọi thao tác.
+	DOC, chưa chạy AE.
+	Premiere UXP
+	Tích hợp project/sequence/clip/marker và workflow biên tập
+	Có official UXP/DOM APIs; cần kiểm API và phiên bản trước khi cam kết thao tác cụ thể. Không dựa vào API nội bộ undocumented.
+	DOC, chưa chạy Premiere.
+	CapCut
+	Dựng và tinh chỉnh thủ công mẫu, captions/keyframes
+	Đã kiểm tài liệu keyframe. Chưa xác minh public editing/render API chính thức đáp ứng pipeline này; không chọn làm core unattended.
+	Không kết luận mọi tích hợp đều không tồn tại.
+	AI Video Understanding
+	Gợi ý scene type, subject, text/graphic semantics
+	Đưa confidence và evidence span; khó xác minh SFX/easing gốc từ video nén. Không thay việc đo timeline.
+	Thiết kế đề xuất, chưa benchmark.
+	Speech-to-Text
+	Transcript và word timestamps
+	Tên riêng, dấu tiếng Việt, English/Vietnamese code switching cần sửa; alignment không bảo đảm chính xác mặc định.
+	Chưa chạy ASR cho hai file.
+	Beat/onset detection
+	Gợi ý nhịp để chọn accent
+	Beat khác onset; mix voice+nhạc cần kiểm; có thể nhầm half/double tempo.
+	Flux ứng viên đã tính; chưa đo BPM.
+	Motion tracking
+	Anchor bbox/plane cho callout, camera solve khi cần
+	Drift/occlusion và segmentation phải review; không cần cho thẻ screen-space.
+	Chưa chạy tracker.
+	
+
+Phân mức hiệu ứng
+
+
+Mức
+	Có thể giao cho máy
+	Điều kiện
+	Toàn phần trong template
+	Typewriter Unicode, pop keyframe, plate bbox, card stagger, UI state, PIP tĩnh, shape reveal, audio marker placement, loudness measurement
+	Nội dung, tọa độ/constraints, assets và markers hợp lệ; output phải qua QA.
+	Bán phần
+	Chia caption theo nghĩa, chọn keyword, B-roll, beat snap, object/face tracking, roto, match cut
+	Mô hình gợi ý + confidence; người duyệt điểm sai/gián đoạn/claim.
+	Cần đạo diễn/biên tập
+	Mục tiêu kể chuyện, tính đúng của ví dụ/số liệu, nhịp cảm xúc, bản quyền asset, final mix và chất lượng chủ thể
+	Không suy viral từ preset; không phát hành tự động khi thông tin chưa xác minh.
+	
+
+Lộ trình triển khai theo tiêu chí hoàn thành
+
+
+Giai đoạn
+	Công việc cụ thể
+	Tiêu chí ra giai đoạn
+	0 — Hợp đồng dữ liệu
+	Chuẩn schema, asset manifest, UTC/source time, frame rounding, version và evidence tags
+	Mọi event có frame range hợp lệ; mọi asset có hash/source/license hoặc pending; pending audio tắt.
+	1 — MVP renderer
+	6 pattern đầu: keyword, slide title, checklist, blur chapter, PIP, selection frame; fonts Việt hóa và template9:16
+	Render deterministic; không overflow/che mặt; không lỗi dấu; mọi keyframe có default/fallback.
+	2 — Ngôn ngữ và âm
+	ASR+alignment; audio asset marker; gain/duck/loudness; người sửa từ chuyên ngành
+	Transcript mẫu duyệt; drift caption trong tolerance nội bộ; không cue âm chưa được cấp phép.
+	3 — Vision có điều kiện
+	Face regions, layout avoidance, tracked callout; không triển khai camera3D nếu không có use case
+	Track confidence drop tạo review/fallback; không nhảy ID sau occlusion; QA trên shot khó.
+	4 — Review và đánh giá
+	Preview trên điện thoại/tai nghe/mono; log editor overrides; A/B khi có phân phối tương đương
+	Lỗi đọc/âm/claim được sửa; đo thời gian chỉnh tay và chất lượng, không tự hứa tăng view.
+	5 — Vận hành
+	Render queue, asset cache, retries idempotent, manifest+version+hash, lưu trạng thái duyệt
+	Có thể render lại cùng input; không ghi đè source; failure có thể resume mà không nhân đôi publish.
+	
+
+Không ước lượng số tuần/chi phí khi chưa biết số video/ngày, phần cứng, yêu cầu render time và năng lực đội. Mỗi giai đoạn có thể nghiệm thu độc lập.
+Hợp đồng frame, âm thanh và version
+Dùng startFrame bao gồm, endFrameExclusive không bao gồm. Nguồn → timeline qua time map rõ ràng nếu trim/speed ramp; không cộng offset thủ công nhiều lần. Làm việc bằng số frame nguyên cho hình; âm có thể đặt theo ms/sample. fps nguồn khác timeline cần conversion có kiểm tra.
+Ví dụ audio: event bắt đầu frame30=1000ms ở30fps; visual anchor tại offset3f=100ms; peak trong asset ở40ms. audioStart=1000+100−40=1060ms. Giữ giá trị sample khi mix, không bắt buộc làm tròn về frame rồi tích lũy drift.
+effect version mô tả preset; schemaVersion mô tả hợp đồng dữ liệu; styleId mô tả hệ thiết kế. Lưu source file hash và timestamp trong observation. Một REC không được tự chuyển thành OBS chỉ vì render thành công.
+JSON kế hoạch mẫu — hợp lệ về cú pháp, chưa render
+{
+  "schemaVersion": "1.0.0",
+  "styleId": "educational-editorial-v01",
+  "project": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationFrames": 360
+  },
+  "style": {
+    "fontRoles": {
+      "body": "Noto Sans",
+      "emphasis": "Noto Serif"
+    },
+    "colors": {
+      "paper": "#F2EEE5",
+      "ink": "#18222B",
+      "accent": "#369EC1"
+    },
+    "safeAreaPx": {
+      "left": 72,
+      "right": 180,
+      "top": 160,
+      "bottom": 300
+    }
+  },
+  "effects": [
+    {
+      "id": "T04",
+      "kind": "text",
+      "version": "0.1.0",
+      "parameterStatus": "recommended_not_extracted",
+      "durationFrames": 8,
+      "keyframes": [
+        {
+          "f": 0,
+          "scale": 0.86,
+          "opacity": 0
+        },
+        {
+          "f": 3,
+          "scale": 1.06,
+          "opacity": 1
+        },
+        {
+          "f": 7,
+          "scale": 1,
+          "opacity": 1
+        }
+      ],
+      "anchor": "center",
+      "interpolation": "piecewise_ease_out",
+      "observations": [],
+      "sources": [
+        "REM_SPRING",
+        "AE_EASE"
+      ]
+    }
+  ],
+  "audioAssets": [
+    {
+      "id": "pop_pending",
+      "uri": null,
+      "creator": null,
+      "sourceUrl": null,
+      "licenseId": null,
+      "commercialUse": null,
+      "reviewStatus": "pending",
+      "anchorMs": 40
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_001",
+      "patternId": "P01",
+      "effectId": "T04",
+      "startFrame": 30,
+      "endFrameExclusive": 72,
+      "text": "Một ý chính",
+      "positionNorm": {
+        "x": 0.44,
+        "y": 0.35
+      },
+      "visualAnchorOffsetFrames": 3,
+      "audio": {
+        "assetId": "pop_pending",
+        "enabled": false,
+        "startMs": 1060,
+        "gainDb": -12
+      },
+      "evidenceStatus": "REC",
+      "reviewRequired": true
+    }
+  ],
+  "references": [
+    {
+      "sourceFile": "snaptik_7702445259443178759_v3.mp4",
+      "timeRangeSec": [
+        0.1,
+        0.2
+      ],
+      "observed": "Partial character reveal; not evidence of bounce or pop audio."
+    }
+  ],
+  "sources": {
+    "AE_EASE": {
+      "title": "Adobe — Speed and Graph Editor",
+      "url": "https://helpx.adobe.com/after-effects/desktop/animate-in-after-effects/speed-between-keyframes/speed.html"
+    },
+    "REM_SPRING": {
+      "title": "Remotion — spring()",
+      "url": "https://www.remotion.dev/docs/spring"
+    }
+  }
+}
+audio enabled=false vì asset/license chưa chọn. gainDb chỉ là tham số bắt đầu, không chứng minh mức nghe đúng. reference về typewriter không được dùng làm bằng chứng bounce/pop. Giá trị positionNorm là tâm nhóm trong canvas, cần layout solver xác nhận không va chạm.
+JSON Schema tối thiểu cho một text event
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI editing event — minimal contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "patternId",
+    "effectId",
+    "startFrame",
+    "endFrameExclusive",
+    "text",
+    "positionNorm",
+    "visualAnchorOffsetFrames",
+    "audio",
+    "evidenceStatus",
+    "reviewRequired"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "patternId": {
+      "type": "string",
+      "pattern": "^P[0-9]{2}$"
+    },
+    "effectId": {
+      "type": "string",
+      "pattern": "^T[0-9]{2}$"
+    },
+    "startFrame": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "endFrameExclusive": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "positionNorm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "visualAnchorOffsetFrames": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetId",
+        "enabled",
+        "startMs",
+        "gainDb"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "startMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "gainDb": {
+          "type": "number",
+          "minimum": -60,
+          "maximum": 12
+        }
+      }
+    },
+    "evidenceStatus": {
+      "enum": [
+        "OBS",
+        "MEAS",
+        "DOC",
+        "REC",
+        "UNKNOWN"
+      ]
+    },
+    "reviewRequired": {
+      "type": "boolean"
+    }
+  }
+}
+Schema trên chỉ kiểm kiểu/range từng field. Validator nghiệp vụ phải kiểm end>start, end≤duration, anchor nằm trong event, ID có trong registry, effect đúng kind, SFX có license khi enabled và text bbox không vượt safe area. Không dùng schema này để giả vờ đã kiểm toàn bộ timeline.
+Registry mẫu có thể tái sử dụng
+{
+  "schemaVersion": "1.0.0",
+  "parameterStatus": "recommended_not_extracted",
+  "effectIds": {
+    "text": [
+      "T01",
+      "T02",
+      "T03",
+      "T04",
+      "T05",
+      "T06",
+      "T07",
+      "T08",
+      "T09",
+      "T10",
+      "T11",
+      "T12",
+      "T13"
+    ],
+    "motion": [
+      "M01",
+      "M02",
+      "M03",
+      "M04",
+      "M05",
+      "M06",
+      "M07",
+      "M08",
+      "M09",
+      "M10",
+      "M11",
+      "M12",
+      "M13",
+      "M14",
+      "M15",
+      "M16",
+      "M17",
+      "M18",
+      "M19"
+    ],
+    "sound": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15",
+      "S16",
+      "S17",
+      "S18",
+      "S19",
+      "S20"
+    ]
+  },
+  "patterns": [
+    {
+      "id": "P01",
+      "name": "Keyword highlight",
+      "components": [
+        "T04",
+        "M05",
+        "S06"
+      ]
+    },
+    {
+      "id": "P02",
+      "name": "Typewriter prompt",
+      "components": [
+        "T03",
+        "M14",
+        "S08"
+      ]
+    },
+    {
+      "id": "P03",
+      "name": "Slide title",
+      "components": [
+        "T07",
+        "M05",
+        "S01"
+      ]
+    },
+    {
+      "id": "P04",
+      "name": "Blur chapter",
+      "components": [
+        "T01",
+        "M05",
+        "S03"
+      ]
+    },
+    {
+      "id": "P05",
+      "name": "Checklist build",
+      "components": [
+        "T02",
+        "M14",
+        "S10"
+      ]
+    },
+    {
+      "id": "P06",
+      "name": "Logo comparison / ranking",
+      "components": [
+        "T13",
+        "M15",
+        "S07"
+      ]
+    },
+    {
+      "id": "P07",
+      "name": "Selection-frame emphasis",
+      "components": [
+        "T13",
+        "M14",
+        "S11"
+      ]
+    },
+    {
+      "id": "P08",
+      "name": "Document + presenter PIP",
+      "components": [
+        "T07",
+        "M14",
+        "S02"
+      ]
+    },
+    {
+      "id": "P09",
+      "name": "Product spec callout",
+      "components": [
+        "T13",
+        "M16",
+        "S07"
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "Behind-subject title",
+      "components": [
+        "T08",
+        "M07",
+        "S01"
+      ]
+    },
+    {
+      "id": "P11",
+      "name": "Punch-in point",
+      "components": [
+        "T04",
+        "M11",
+        "S05"
+      ]
+    },
+    {
+      "id": "P12",
+      "name": "Before / after comparison",
+      "components": [
+        "T13",
+        "M05",
+        "S02"
+      ]
+    }
+  ]
+}
+Registry là danh mục ID/tham chiếu; thông số chi tiết tương ứng nằm trong Text/Motion/Sound/Combination Library. Khi triển khai sản phẩm, lưu mỗi effect trong JSON riêng gồm params, interpolation, preconditions, fallback, assetRights, sourceRefs, validationStatus và lastUpdated.
+Lệnh tái lập các phép đo đã chạy
+ffprobe -v quiet -show_format -show_streams -of json input.mp4
+ffmpeg -hide_banner -nostats -i input.mp4 -vf "select='gt(scene,0.28)',metadata=print:file=scene_candidates.txt" -an -f null -
+ffmpeg -hide_banner -nostats -i input.mp4 -af loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json -f null -
+ffmpeg -v error -ss 0.2 -i input.mp4 -frames:v 1 frame_0_2s.png
+Lệnh loudnorm ở trên xuất về null để đo, không tạo master. Đọc input_i/input_tp/input_lra; không báo các trường output là số đo file gốc. Lệnh select phát hiện visual-change candidates, không phải cut ground truth. input.mp4 là placeholder để thay bằng file của bạn.
+QA và fallback trước render cuối
+Nội dung: không sai dấu/tên riêng, không bỏ từ phủ định hoặc ghép clip sai ý; mọi product spec/ranking có nguồn hoặc được ghi là ý kiến. Layout: đủ thời gian đọc, không che mặt, không vượt safe area, text không bị cắt dấu.
+Motion: timeline deterministic, random có seed, reveal dừng đúng, không frame đen, không vệt blur kéo qua thời gian đọc. Audio: đúng perceptual marker, không clipping/pumping, voice rõ trên điện thoại và mono, license hợp lệ. Preview: xem tốc độ thực, không chỉ frame tĩnh.
+REC tolerance nội bộ ban đầu: visual accent với sound marker ±1frame; caption word alignment mục tiêu ±2frame cho tập kiểm đã sửa transcript; nếu ASR confidence thấp thì review thay vì coi mục tiêu đã đạt. Mức master thử -16LUFS-I/≤-1.5dBTP, đo lại sau encode. Đây là mục tiêu dự án, không phải chuẩn nền tảng.
+Báo cáo kiểm chứng thực tế
+Đã chạy: decode/probe/frame/scene candidates/RMS/flux/loudness của hai file; kiểm JSON có thể parse, registry không trùng ID, component reference hợp lệ và timing example đúng. Chưa chạy: ASR, nghe kiểmSFX, beat tracking, object/camera tracking, editor scripting, rendererRemotion, GUI hoặc pipeline tự dựng video đầu-cuối. Công việc hiện tại tạo bộ kiến thức và blueprint, không tuyên bố đã huấn luyện AI.
+Nguồn và trạng thái kiểm chứng
+REM_INTERP — Remotion — interpolate()
+REM_SPRING — Remotion — spring()
+REM_CAP — Remotion — Captions API
+REM_BLUR — Remotion — Motion blur
+FFMPEG — FFmpeg — Filters reference
+AE_SCRIPT — Adobe — ExtendScript / JSX
+AE_UXP — Adobe — After Effects UXP, beta documentation
+PP_UXP — Adobe — Premiere UXP API
+CAPCUT — CapCut — Keyframes
+FLOW — OpenCV — Optical flow
+ONSET — librosa — onset_detect
+BEAT — librosa — beat_track
+Các nguồn trên được mở hoặc kiểm tra qua tìm kiếm web trong phiên làm việc ngày 15/11/2026. Nguồn xác minh cơ chế/tính năng; thông số thẩm mỹ là đề xuất của bản nghiên cứu. Chưa chạy các preset trong After Effects, Premiere, CapCut hoặc Remotion.

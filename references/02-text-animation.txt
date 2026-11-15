@@ -1,0 +1,195 @@
+02 — Text Animation Library | AI Video Editing v0.1
+Phiên bản 0.1 • 15/11/2026 • Tiếng Việt. OBS = quan sát trực tiếp; MEAS = đo bằng công cụ; DOC = tài liệu nguồn; REC = công thức đề xuất; UNKNOWN = chưa xác minh. Thông số animation trong thư viện là REC, không phải keyframe gốc trích xuất từ MP4.
+Điều hướng bộ tài liệu
+01 — Video Editing Knowledge Base & Reference Analysis v0.1
+02 — Text Animation Library | AI Video Editing v0.1
+03 — Motion Graphics Library | AI Video Editing v0.1
+04 — Sound Effects Library | AI Video Editing v0.1
+05 — Editing Combination Library | AI Video Editing v0.1
+06 — AI Editing Automation Roadmap & Data Contract v0.1
+Module A — hệ typography nhất quán
+Phân biệt: kỹ thuật là cách tạo chuyển động; hiệu ứng là kết quả nhìn thấy; nguyên tắc thiết kế quyết định chữ nào cần nổi bật. Tên T01–T13 là ID nội bộ để tìm kiếm, không phải tên preset thương mại.
+Toàn bộ giá trị frame dùng 30fps. Nếu timeline 60fps, đổi duration theo giây rồi nhân fps; không sao chép nguyên số frame. V1 = file 7702445259443178759; V2 = file 7704313821384428808.
+
+
+ID
+	Kỹ thuật
+	Tự động hóa
+	Bằng chứng tham chiếu
+	T01
+	Kinetic typography — bố cục chữ chuyển động
+	Remotion: scene graph và interpolate
+	V1 00:01–00:03.8: phân cấp chữ mở đầu.
+	T02
+	Word-by-word — hiện từng từ / tích lũy / thay từ
+	ASR/forced alignment tạo timestamps
+	V2 00:49–00:53 thay cụm phụ đề; chưa có alignment âm tiết nên chưa xác minh đồng bộ giọng.
+	T03
+	Character-by-character — typewriter / stagger ký tự
+	Code: Intl.Segmenter hoặc thư viện Unicode grapheme
+	V1 00:00.1 và 00:00.2.
+	T04
+	Pop-up / bounce text — scale overshoot
+	Remotion interpolate keyframes hoặc spring
+	Chưa xác minh overshoot cụ thể trong hai video; ví dụ này là preset REC.
+	T05
+	Text tracking — giãn chữ và text following — bám đối tượng
+	Letter-spacing dễ tự động
+	Không có bằng chứng tracking vật thể từ các thẻ đứng trong screen-space của hai video.
+	T06
+	3D / perspective typography — chữ xoay trong không gian
+	CSS perspective cho 2.5D
+	Chưa xác minh trong V1/V2.
+	T07
+	Mask reveal — wipe chữ / line reveal
+	SVG mask/CSS clip-path
+	Thẻ chữ trong V1 phù hợp tái tạo bằng reveal; cơ chế mask gốc chưa xác minh.
+	T08
+	Text behind object — chữ sau chủ thể
+	Segmentation tạo mask bán tự động
+	Chưa xác minh trong V1/V2; PIP cắt người không tự chứng minh text behind object.
+	T09
+	Motion-blur typography — blur theo vận tốc
+	Remotion motion-blur
+	V1 00:01 có chữ mờ trong quá trình hiện; chỉ xác minh blur nhìn thấy, chưa xác minh shutter/thuật toán.
+	T10
+	Speech-synced subtitles — karaoke / active-word highlight
+	ASR + word alignment + createTikTokStyleCaptions
+	V2 có nhiều phụ đề cụm; đồng bộ chính xác với giọng vẫn UNKNOWN trong phiên này.
+	T11
+	Camera-tracked text — chữ gắn vào không gian quay
+	Bán tự động
+	Chưa xác minh trong V1/V2.
+	T12
+	Beat / SFX-synced text — chữ theo điểm nhấn âm thanh
+	Event scheduler từ beat/onset đã duyệt
+	Chưa xác minh BPM và cue SFX gốc của hai video.
+	T13
+	Mixed typography + keyword plate — phối kiểu chữ và nền nhấn
+	Renderer đo glyph/bounding box trước khi animate
+	V1 ~00:20 và 00:55; V2 ~00:34, 00:46 và 01:37.5.
+	
+
+Công thức chi tiết
+T01 — Kinetic typography — bố cục chữ chuyển động
+Nhận diện & biến thể: Cụm chữ đổi vị trí, tỷ lệ, độ đậm hoặc quan hệ với nhau để thể hiện ý nghĩa; không đồng nghĩa với mọi phụ đề có animation.
+Cơ chế, easing & preset REC: Tách tiêu đề thành nhóm ý; position/scale/opacity theo nhịp ý; 8–14 frame vào, giữ 24–60 frame. Ease-out cho vào, ease-in cho ra.
+Dùng khi / tác động chú ý: Hook, đối lập khái niệm, câu kết. Một cụm làm điểm nhìn chính; nhiều cụm chạy cùng lúc làm khó đọc.
+Thực hành: AE: precomp từng cụm và parent vào null. Premiere: các graphic layer hoặc MOGRT. CapCut: tách text clip rồi keyframe transform.
+Tự động hóa: Remotion: scene graph và interpolate; tự động hoàn toàn sau khi nội dung/bố cục được duyệt.
+Tham chiếu & độ chắc chắn: V1 00:01–00:03.8: phân cấp chữ mở đầu.
+Nguồn cơ chế: AE_TEXT
+T02 — Word-by-word — hiện từng từ / tích lũy / thay từ
+Nhận diện & biến thể: Từ xuất hiện theo thứ tự; có thể giữ các từ trước hoặc thay toàn bộ cụm. Cần phân biệt với karaoke highlight.
+Cơ chế, easing & preset REC: Word onset → opacity 0→1 trong 2–3 frame; tùy chọn y +12→0 trong 5 frame. Không áp khoảng cách đều nếu lời nói không đều.
+Dùng khi / tác động chú ý: Câu ngắn, lời giải thích; giữ cụm đủ ngữ cảnh, tránh chỉ hiển thị một từ khiến đọc đuổi.
+Thực hành: AE: Text Animator + Range Selector Based On Words. Premiere/CapCut: caption chia theo cụm hoặc text clip riêng.
+Tự động hóa: ASR/forced alignment tạo timestamps; renderer tự động, việc chia nghĩa và sửa transcript là bán tự động.
+Tham chiếu & độ chắc chắn: V2 00:49–00:53 thay cụm phụ đề; chưa có alignment âm tiết nên chưa xác minh đồng bộ giọng.
+Nguồn cơ chế: REM_CAP
+T03 — Character-by-character — typewriter / stagger ký tự
+Nhận diện & biến thể: Các ký tự lộ dần; ở V1 đầu video thấy “B” rồi “Bạn”. Đây là quan sát cách hiện, không xác định preset gốc.
+Cơ chế, easing & preset REC: REC: 1–2 frame/grapheme, opacity step; caret tùy chọn. Tách grapheme Unicode sau NFC để không làm rời dấu tiếng Việt.
+Dùng khi / tác động chú ý: Lệnh, prompt, tiêu đề ngắn; không dùng cho đoạn dài cần đọc nhanh. Click chỉ đặt theo nhóm gõ.
+Thực hành: AE: Range Selector Characters, Smoothness 0 cho bước cứng. CapCut: typewriter có sẵn nếu phiên bản hỗ trợ, hoặc từng text clip.
+Tự động hóa: Code: Intl.Segmenter hoặc thư viện Unicode grapheme; không slice từng byte/code point tùy tiện.
+Tham chiếu & độ chắc chắn: V1 00:00.1 và 00:00.2.
+Nguồn cơ chế: AE_TEXT
+T04 — Pop-up / bounce text — scale overshoot
+Nhận diện & biến thể: Chữ xuất hiện với thay đổi scale; bounce phải có vượt đích rồi trở lại, không suy từ một ảnh tĩnh.
+Cơ chế, easing & preset REC: REC 30fps: frame 0 scale .86/opacity 0; f3 1.06/1; f7 1; giữ 18–36f. Anchor tại tâm nhóm, không thay line-height.
+Dùng khi / tác động chú ý: Keyword, con số, kết quả. Overshoot mạnh cho nội dung vui; nhẹ cho kiến thức. Lặp mỗi từ dễ mệt.
+Thực hành: AE/Premiere/CapCut: keyframe Scale và Opacity; kiểm tra anchor. AE Graph Editor chỉnh quá đích; không mặc định Easy Ease tạo bounce.
+Tự động hóa: Remotion interpolate keyframes hoặc spring; frame-based render. Tự động hoàn toàn trong template.
+Tham chiếu & độ chắc chắn: Chưa xác minh overshoot cụ thể trong hai video; ví dụ này là preset REC.
+Nguồn cơ chế: REM_SPRING
+T05 — Text tracking — giãn chữ và text following — bám đối tượng
+Nhận diện & biến thể: Tracking typography là khoảng cách chữ; motion tracking là bám chuyển động. Hai nghĩa khác nhau cần hai loại metadata.
+Cơ chế, easing & preset REC: Giãn chữ REC: .02em→0 trong 10f. Bám vật thể: position từ tracked anchor + offset, lọc nhiễu, ngắt track khi mất dấu.
+Dùng khi / tác động chú ý: Giãn chữ cho title; bám vật thể cho nhãn sản phẩm. Không bám mặt nếu nhãn cần đứng yên để đọc.
+Thực hành: AE Text Animator Tracking cho khoảng cách; Track Motion→null→parent cho bám. CapCut chỉ dùng tracking nếu control tương ứng thực sự có.
+Tự động hóa: Letter-spacing dễ tự động; bám vật thể bán tự động với OpenCV/AI tracker, cần kiểm tra drift.
+Tham chiếu & độ chắc chắn: Không có bằng chứng tracking vật thể từ các thẻ đứng trong screen-space của hai video.
+Nguồn cơ chế: AE_TRACK
+T06 — 3D / perspective typography — chữ xoay trong không gian
+Nhận diện & biến thể: Phối cảnh làm mép gần xa thay kích thước; drop shadow đơn thuần không chứng minh 3D.
+Cơ chế, easing & preset REC: REC rotateY -20°→0°, translateZ -60→0 trong 12f; kiểm tra perspective origin, camera và clipping.
+Dùng khi / tác động chú ý: Giới thiệu sản phẩm/không gian, tránh subtitle dài. Mặt chữ nghiêng mạnh làm giảm đọc.
+Thực hành: AE: layer 3D + camera; CapCut/Premiere: dựng gần đúng bằng transform nếu có perspective, hoặc import render sẵn.
+Tự động hóa: CSS perspective cho 2.5D; Three.js/Blender cho hình học thật. Auto trong cảnh tổng hợp, bán tự động với footage.
+Tham chiếu & độ chắc chắn: Chưa xác minh trong V1/V2.
+Nguồn cơ chế: REM_INTERP
+T07 — Mask reveal — wipe chữ / line reveal
+Nhận diện & biến thể: Chữ đã tồn tại nhưng matte/clip-path mở dần; khác opacity fade toàn lớp.
+Cơ chế, easing & preset REC: REC clip từ 0→100% trong 8–12f, y +16→0; overscan ít nhất chiều dài blur; giữ 24f trở lên.
+Dùng khi / tác động chú ý: Title và liệt kê theo dòng; reveal thuận hướng đọc giúp người xem theo ý. Không cắt dấu hoặc descender.
+Thực hành: AE alpha matte/shape mask. Premiere mask hoặc MOGRT. CapCut dùng mask trên compound clip nếu hỗ trợ.
+Tự động hóa: SVG mask/CSS clip-path; FFmpeg drawtext alpha cho bản đơn giản, overlay matte cho reveal phức tạp.
+Tham chiếu & độ chắc chắn: Thẻ chữ trong V1 phù hợp tái tạo bằng reveal; cơ chế mask gốc chưa xác minh.
+Nguồn cơ chế: AE_SHAPE
+T08 — Text behind object — chữ sau chủ thể
+Nhận diện & biến thể: Một phần chữ bị chủ thể che đúng theo contour và thời gian; cần matte foreground.
+Cơ chế, easing & preset REC: Stack: footage nền → text → foreground alpha. REC feather 1–3px tại 1080p rồi tinh chỉnh theo tóc/motion blur.
+Dùng khi / tác động chú ý: Tạo chiều sâu cho title ngắn. Không giấu từ mang nghĩa chính hoặc đặt trên tóc chi tiết khó tách.
+Thực hành: AE duplicate footage + Roto Brush/Refine Matte; CapCut cutout nếu đủ chất lượng. Premiere nhận alpha/pre-render.
+Tự động hóa: Segmentation tạo mask bán tự động; cần temporal consistency và duyệt tóc/tay/đồ vật cầm.
+Tham chiếu & độ chắc chắn: Chưa xác minh trong V1/V2; PIP cắt người không tự chứng minh text behind object.
+Nguồn cơ chế: AE_ROTO
+T09 — Motion-blur typography — blur theo vận tốc
+Nhận diện & biến thể: Vệt mờ theo chuyển động/độ phơi sáng; khác Gaussian blur của cả nền.
+Cơ chế, easing & preset REC: REC shutter angle 90–180°, 8–12 temporal samples để thử; tăng samples khi chuyển động nhanh, đo chi phí render.
+Dùng khi / tác động chú ý: Slide/whip/zoom nhanh; giữ frame dừng sắc để đọc. Không blur phụ đề đang đứng yên.
+Thực hành: AE bật layer+composition Motion Blur; Premiere Transform shutter nếu control hỗ trợ; CapCut hiệu ứng blur có thể chỉ là xấp xỉ.
+Tự động hóa: Remotion motion-blur; blur tĩnh trong FFmpeg không tương đương temporal motion blur.
+Tham chiếu & độ chắc chắn: V1 00:01 có chữ mờ trong quá trình hiện; chỉ xác minh blur nhìn thấy, chưa xác minh shutter/thuật toán.
+Nguồn cơ chế: REM_BLUR
+T10 — Speech-synced subtitles — karaoke / active-word highlight
+Nhận diện & biến thể: Caption đổi theo từ hoặc cụm lời nói; thông tin thời gian lấy từ audio, không lấy từ mật độ chữ trên màn hình.
+Cơ chế, easing & preset REC: REC tối đa 2 dòng; active word đổi màu/weight, layout đứng yên; lead 0–1f sau khi kiểm alignment; xử lý ngắt câu.
+Dùng khi / tác động chú ý: Nội dung nói; ưu tiên đúng nghĩa và dấu tiếng Việt. Nhấp nháy mọi âm tiết làm tăng tải đọc.
+Thực hành: Premiere/CapCut auto captions → sửa transcript/timing trước, rồi style. AE nhập caption JSON/SRT qua workflow phù hợp.
+Tự động hóa: ASR + word alignment + createTikTokStyleCaptions; máy dàn trang, người duyệt tên riêng/chuyên ngành.
+Tham chiếu & độ chắc chắn: V2 có nhiều phụ đề cụm; đồng bộ chính xác với giọng vẫn UNKNOWN trong phiên này.
+Nguồn cơ chế: REM_CAP
+T11 — Camera-tracked text — chữ gắn vào không gian quay
+Nhận diện & biến thể: Chữ giữ phối cảnh/vị trí tương đối với mặt phẳng cảnh khi camera di chuyển; cần camera solve có parallax.
+Cơ chế, easing & preset REC: Solve camera → chọn plane → text 3D; kiểm tra ít nhất đầu/giữa/cuối. Không dùng thông số solve giả định cố định.
+Dùng khi / tác động chú ý: Nhãn không gian, kiến trúc; không cần cho talking head máy đứng. Tránh solve trên shot chỉ có chuyển động người.
+Thực hành: AE 3D Camera Tracker; text gắn null 3D. Dựng compositing chuyên dụng rồi đưa vào Premiere/CapCut.
+Tự động hóa: Bán tự động; camera solve có thể hỏng khi blur, rolling shutter, thiếu texture hoặc thay tiêu cự.
+Tham chiếu & độ chắc chắn: Chưa xác minh trong V1/V2.
+Nguồn cơ chế: AE_TRACK
+T12 — Beat / SFX-synced text — chữ theo điểm nhấn âm thanh
+Nhận diện & biến thể: Điểm nhấn scale/reveal trùng sự kiện âm thanh có ý nghĩa, không nhất thiết là mọi nhịp nhạc.
+Cơ chế, easing & preset REC: REC chọn beat được duyệt; word/syllable quan trọng ưu tiên hơn beat. Scale peak tại accent, tolerance preview ±1f.
+Dùng khi / tác động chú ý: Hook, danh sách, drop; bỏ bớt nhịp để giữ phân cấp. Không ép phụ đề sang beat làm lệch lời.
+Thực hành: NLE marker trên beat; AE marker điều khiển expression; CapCut keyframe theo waveform/marker nếu có.
+Tự động hóa: Event scheduler từ beat/onset đã duyệt; onset không tự là beat hoặc SFX.
+Tham chiếu & độ chắc chắn: Chưa xác minh BPM và cue SFX gốc của hai video.
+Nguồn cơ chế: BEAT
+T13 — Mixed typography + keyword plate — phối kiểu chữ và nền nhấn
+Nhận diện & biến thể: Sans đậm cho thông tin; serif nghiêng cho ý nhấn; shape nền màu theo kích thước từ. Đây là hệ thiết kế cộng animation.
+Cơ chế, easing & preset REC: REC 1080×1920: caption 46–60px, heading 76–100px; padding plate 14×8px; line-height 1.15–1.25; kiểm dấu và font fallback.
+Dùng khi / tác động chú ý: Nội dung giải thích/nhận định. Chỉ 1–2 từ nhấn mỗi cụm, không đổi font ở mọi từ.
+Thực hành: AE shape dựa sourceRectAtTime; Premiere MOGRT responsive; CapCut text + background/shape căn thủ công.
+Tự động hóa: Renderer đo glyph/bounding box trước khi animate; template tự động, kiểm overflow và vùng mặt.
+Tham chiếu & độ chắc chắn: V1 ~00:20 và 00:55; V2 ~00:34, 00:46 và 01:37.5.
+Nguồn cơ chế: AE_TEXT
+Thiết lập style tái tạo hai video
+OBS: phối serif nghiêng với sans đậm, xanh lam/cyan làm màu nhấn, nền kem ở V1; thẻ trắng, bo góc, shadow nhẹ và phụ đề trắng/nhấn xanh ở V2. Không nhận diện chính xác font hoặc mã màu gốc từ MP4.
+REC: chọn Noto Sans + Noto Serif hoặc font Việt hóa có license rõ; đây là lựa chọn thay thế, không phải font đã xác minh trong mẫu. Token thử: ink #18222B, paper #F2EEE5, accent #369EC1; V2 có thể dùng blue #3759CD. Màu cần lấy mẫu lại nếu yêu cầu khớp thương hiệu.
+REC safe area khởi đầu tại 1080p: trái 72px, phải 180px, trên 160px, dưới 300px. Đây là vùng bảo thủ để thử preview trên nền tảng, không phải thông số UI TikTok cố định. Vùng mặt được coi là obstacle riêng. Tối đa một cụm chữ chính chuyển động trong cùng thời điểm.
+QA: kiểm đủ dấu; không tách grapheme; không bị plate cắt dấu; caption đủ thời gian đọc trên điện thoại; contrast được kiểm trên frame sáng/tối; không chọn font chỉ vì giống hình nhưng thiếu quyền dùng.
+Nguồn và trạng thái kiểm chứng
+AE_TEXT — Adobe — Animating text
+AE_EASE — Adobe — Speed and Graph Editor
+AE_SHAPE — Adobe — Shape paths and masks
+AE_TRACK — Adobe — Tracking and stabilization
+AE_ROTO — Adobe — Roto Brush and Refine Matte
+CAPCUT — CapCut — Keyframes
+REM_SPRING — Remotion — spring()
+REM_INTERP — Remotion — interpolate()
+REM_CAP — Remotion — Captions API
+REM_BLUR — Remotion — Motion blur
+BEAT — librosa — beat_track
+Các nguồn trên được mở hoặc kiểm tra qua tìm kiếm web trong phiên làm việc ngày 15/11/2026. Nguồn xác minh cơ chế/tính năng; thông số thẩm mỹ là đề xuất của bản nghiên cứu. Chưa chạy các preset trong After Effects, Premiere, CapCut hoặc Remotion.

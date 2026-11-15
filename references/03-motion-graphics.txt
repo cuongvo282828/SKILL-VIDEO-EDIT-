@@ -1,0 +1,263 @@
+03 — Motion Graphics Library | AI Video Editing v0.1
+Phiên bản 0.1 • 15/11/2026 • Tiếng Việt. OBS = quan sát trực tiếp; MEAS = đo bằng công cụ; DOC = tài liệu nguồn; REC = công thức đề xuất; UNKNOWN = chưa xác minh. Thông số animation trong thư viện là REC, không phải keyframe gốc trích xuất từ MP4.
+Điều hướng bộ tài liệu
+01 — Video Editing Knowledge Base & Reference Analysis v0.1
+02 — Text Animation Library | AI Video Editing v0.1
+03 — Motion Graphics Library | AI Video Editing v0.1
+04 — Sound Effects Library | AI Video Editing v0.1
+05 — Editing Combination Library | AI Video Editing v0.1
+06 — AI Editing Automation Roadmap & Data Contract v0.1
+Module B — chuyển động phục vụ giải thích
+Ưu tiên của hai video là layout 2D, thẻ UI, typography và chuyển bố cục. Tracking 3D, particle và speed ramp là phần thư viện mở rộng; không có bằng chứng để gán chúng cho mẫu.
+Mức tự động hóa nói về dựng từ input hợp lệ trong template cố định. Nó không có nghĩa AI tự chọn đúng chủ thể, ý nhấn hoặc timing mà không cần kiểm tra.
+
+
+ID
+	Kỹ thuật
+	Tái tạo tự động
+	Bằng chứng
+	M01
+	Shape animation
+	Hoàn toàn với SVG/Canvas/AE template.
+	V1 ~00:39–00:40 có đường nối nhóm tài liệu.
+	M02
+	Motion tracking 2D
+	Bán tự động OpenCV/AE
+	Chưa xác minh trong hai video.
+	M03
+	Camera tracking
+	Bán tự động
+	Không thấy bằng chứng cần camera solve trong mẫu.
+	M04
+	Object tracking
+	Bán tự động, cần detector/tracker và review.
+	Chưa xác minh trong mẫu; khung mặt V2 ~00:49 chưa chứng minh tracking động.
+	M05
+	2D animation
+	Hoàn toàn với template Remotion/AE.
+	V1 UI checklist; V2 hàng logo/thẻ.
+	M06
+	2.5D animation
+	Hoàn toàn trong scene tổng hợp
+	Bóng và card trong mẫu chưa đủ kết luận có z-depth thật.
+	M07
+	Parallax
+	Bán tự động khi tách ảnh
+	Chưa xác minh parallax trong mẫu.
+	M08
+	Speed ramp
+	Một phần: time map tự động, chọn điểm hành động và xử lý nội suy cần review.
+	Chưa xác minh speed ramp trong hai video.
+	M09
+	Mask transition
+	Hoàn toàn với shape, bán tự động với roto.
+	V1 có đổi nền/layout; chưa xác minh transition gốc là mask.
+	M10
+	Match cut
+	Bán tự động: tìm ứng viên bằng vision, người duyệt ý nghĩa.
+	Không đủ bằng chứng gọi các cut trong mẫu là match cut.
+	M11
+	Zoom transition / punch-in
+	Hoàn toàn với crop/transform
+	V2 00:58.7 thấy đổi sang crop gần; chưa xác minh đó là zoom animation thay vì cut đổi khung.
+	M12
+	Whip pan
+	Hoàn toàn với scene tổng hợp
+	Chưa xác minh trong mẫu.
+	M13
+	Motion blur
+	Hoàn toàn khi renderer hỗ trợ temporal sampling
+	Mẫu có blur/ghost trong một số chuyển cảnh, chưa xác minh thông số exposure.
+	M14
+	UI animation
+	Hoàn toàn với dữ liệu và template đã duyệt.
+	V1 ~00:49–00:52 checklist nhiều đầu vào; ~00:46 có khung chọn xanh.
+	M15
+	Infographic animation
+	Hoàn toàn khi dữ liệu sạch
+	V2 ~00:24–00:25 có nhãn xếp hạng dưới logo; đó là ý kiến trình bày trong video, không phải benchmark đã xác minh.
+	M16
+	Callout animation
+	Hoàn toàn với anchor tĩnh
+	V2 ~01:22 có chú thích công suất bên dưới sản phẩm.
+	M17
+	Animated icons
+	Hoàn toàn với SVG/Lottie hoặc pre-render đã duyệt.
+	V2 ~00:49–00:50 icon mặt người/hộp; V1 robot trong thẻ kiến thức.
+	M18
+	Particle effects
+	Hoàn toàn trong template
+	Chưa xác minh trong mẫu.
+	M19
+	3D camera movement
+	Hoàn toàn trong scene 3D đã dựng
+	Chưa xác minh trong mẫu.
+	
+
+Công thức chi tiết
+M01 — Shape animation
+Nguyên lý: Animate position/scale/path của shape vector; line draw dùng Trim Paths hoặc SVG dash offset.
+Timeline, easing và vận tốc: REC 8–12f ease-out vào, giữ theo ý; path 0→100% trong 12f.
+Footage + text + sound: Chạy nét chỉ dẫn đến keyword; tick nhẹ tại lúc đường hoàn thành, không mỗi frame.
+Điều kiện kỹ thuật / lỗi thường gặp: Dùng cùng số vertex cho morph; anchor lệch hoặc easing đều mọi chỗ khiến hình trôi.
+Tự động hóa: Hoàn toàn với SVG/Canvas/AE template.
+Tham chiếu: V1 ~00:39–00:40 có đường nối nhóm tài liệu.
+Nguồn cơ chế: AE_SHAPE
+M02 — Motion tracking 2D
+Nguyên lý: Track điểm/plane rồi áp transform cho graphic, bù offset. Không đồng nghĩa chuyển động keyframe thủ công.
+Timeline, easing và vận tốc: Sample theo frame; lọc jitter nhưng bảo toàn chuyển động thật; reset tại cut.
+Footage + text + sound: Callout đặt ngoài vật thể; whoosh chỉ khi nhãn đi vào, không khi tracker cập nhật.
+Điều kiện kỹ thuật / lỗi thường gặp: Texture, độ tương phản; drift khi che khuất/blur. Track confidence thấp phải review.
+Tự động hóa: Bán tự động OpenCV/AE; human correction.
+Tham chiếu: Chưa xác minh trong hai video.
+Nguồn cơ chế: AE_TRACK
+M03 — Camera tracking
+Nguyên lý: Ước lượng camera từ điểm cảnh tĩnh, tạo hệ tọa độ 3D và plane.
+Timeline, easing và vận tốc: Solve cả shot, đặt keyframe graphic 10–16f độc lập chuyển động camera.
+Footage + text + sound: Chữ ăn phối cảnh và ánh sáng; ambience giữ liên tục để graphic thuộc cảnh.
+Điều kiện kỹ thuật / lỗi thường gặp: Cần parallax/texture; rotation-only/shot máy đứng không đủ để tùy tiện suy depth.
+Tự động hóa: Bán tự động; cần kiểm solve và composite.
+Tham chiếu: Không thấy bằng chứng cần camera solve trong mẫu.
+Nguồn cơ chế: AE_TRACK
+M04 — Object tracking
+Nguyên lý: Theo đối tượng có danh tính qua frame; bbox/contour rồi gắn element; khác camera solve.
+Timeline, easing và vận tốc: Track interval từng frame, smooth anchor; fallback giữ/ngắt nhãn khi bị khuất.
+Footage + text + sound: Nhãn sản phẩm và text tránh mặt; click cho chọn đối tượng.
+Điều kiện kỹ thuật / lỗi thường gặp: Occlusion, đổi dáng, motion blur làm mất ID; không để nhãn nhảy sang vật khác.
+Tự động hóa: Bán tự động, cần detector/tracker và review.
+Tham chiếu: Chưa xác minh trong mẫu; khung mặt V2 ~00:49 chưa chứng minh tracking động.
+Nguồn cơ chế: FLOW
+M05 — 2D animation
+Nguyên lý: Layer trong mặt phẳng: translate/scale/rotate/opacity/mask, không có depth solve.
+Timeline, easing và vận tốc: REC 8–12f ease-out; stagger 3–5f; exit 5–7f ease-in.
+Footage + text + sound: Text + card + icon cùng một hierarchy; pop/click cho một accent chính.
+Điều kiện kỹ thuật / lỗi thường gặp: Giữ anchor, baseline và thứ tự layer; đừng cho mọi layer đến cùng lúc.
+Tự động hóa: Hoàn toàn với template Remotion/AE.
+Tham chiếu: V1 UI checklist; V2 hàng logo/thẻ.
+Nguồn cơ chế: REM_INTERP
+M06 — 2.5D animation
+Nguyên lý: Layer phẳng đặt ở z khác nhau hoặc xoay perspective; tạo depth từ cấu trúc layer.
+Timeline, easing và vận tốc: REC camera push 2–4% trong 45–75f; tilt card ≤8° để thử.
+Footage + text + sound: Card mềm phía sau text sắc; sweep nhẹ nếu có chuyển lớp lớn.
+Điều kiện kỹ thuật / lỗi thường gặp: Cần vùng bù mép; quá nhiều depth làm UI méo và mất khả năng đọc.
+Tự động hóa: Hoàn toàn trong scene tổng hợp; tách foreground từ footage là bán tự động.
+Tham chiếu: Bóng và card trong mẫu chưa đủ kết luận có z-depth thật.
+Nguồn cơ chế: REM_INTERP
+M07 — Parallax
+Nguyên lý: Foreground/background dịch khác tốc độ theo depth giả định hoặc camera.
+Timeline, easing và vận tốc: REC background x 0→12px, foreground 0→24px trong 60f tại 1080p, ease in-out.
+Footage + text + sound: Ảnh tĩnh kể chuyện; nhạc/ambience liên tục, không cần whoosh cho chuyển động nhỏ.
+Điều kiện kỹ thuật / lỗi thường gặp: Cần segmentation/inpaint nếu lộ vùng nền; biên halo làm giả.
+Tự động hóa: Bán tự động khi tách ảnh; hoàn toàn sau khi layer sạch.
+Tham chiếu: Chưa xác minh parallax trong mẫu.
+Nguồn cơ chế: AE_ROTO
+M08 — Speed ramp
+Nguyên lý: Biến tốc độ nguồn theo thời gian đầu ra; r(t) là đạo hàm của source-time map.
+Timeline, easing và vận tốc: REC B-roll 1x→2x trong 6f→1x trong 6f; giá trị chỉ để thử, không áp lên lời nói.
+Footage + text + sound: Riser trước tăng tốc; impact tại điểm hành động, giữ thoại riêng.
+Điều kiện kỹ thuật / lỗi thường gặp: 30fps không cung cấp slow motion sạch tùy ý; optical flow có thể tạo méo tay/cạnh.
+Tự động hóa: Một phần: time map tự động, chọn điểm hành động và xử lý nội suy cần review.
+Tham chiếu: Chưa xác minh speed ramp trong hai video.
+Nguồn cơ chế: AE_TIME
+M09 — Mask transition
+Nguyên lý: Matte động lộ cảnh B, che cảnh A; có thể dựa shape hoặc foreground thật.
+Timeline, easing và vận tốc: REC wipe 8–12f; easing nhất quán hướng; overlap hai shot đủ duration.
+Footage + text + sound: Text ra trước wipe; whoosh apex tại lúc reveal nhanh nhất.
+Điều kiện kỹ thuật / lỗi thường gặp: Thiếu overscan lộ mép; mask từ đối tượng cần contour ổn định.
+Tự động hóa: Hoàn toàn với shape, bán tự động với roto.
+Tham chiếu: V1 có đổi nền/layout; chưa xác minh transition gốc là mask.
+Nguồn cơ chế: AE_SHAPE
+M10 — Match cut
+Nguyên lý: Nối hai shot tương đồng vị trí, hình, hướng hoặc hành động; là quyết định dựng.
+Timeline, easing và vận tốc: Chọn cặp frame tương ứng, thường hard cut; không có easing bắt buộc.
+Footage + text + sound: Đưa vật/keyword vào cùng vị trí; giữ âm thanh cầu nối nếu có ý nghĩa.
+Điều kiện kỹ thuật / lỗi thường gặp: Cần tương đồng ngữ nghĩa và hình học; ghép chỉ vì màu gần nhau có thể gây nhầm.
+Tự động hóa: Bán tự động: tìm ứng viên bằng vision, người duyệt ý nghĩa.
+Tham chiếu: Không đủ bằng chứng gọi các cut trong mẫu là match cut.
+Nguồn cơ chế: AE_TIME
+M11 — Zoom transition / punch-in
+Nguyên lý: Scale/crop giả lập camera tiến; zoom transition còn nối A→B.
+Timeline, easing và vận tốc: REC punch 1.00→1.06 trong 8f ease-out; transition 1.0→1.15 trong 6f, cắt ở apex rồi settle.
+Footage + text + sound: Keyword mạnh + short whoosh, tránh zoom mỗi câu.
+Điều kiện kỹ thuật / lỗi thường gặp: Giữ tâm quanh mắt/chủ thể; source 576×1024 phóng thêm làm lộ nén.
+Tự động hóa: Hoàn toàn với crop/transform; quyết định nhấn là bán tự động.
+Tham chiếu: V2 00:58.7 thấy đổi sang crop gần; chưa xác minh đó là zoom animation thay vì cut đổi khung.
+Nguồn cơ chế: REM_INTERP
+M12 — Whip pan
+Nguyên lý: Tịnh tiến rất nhanh theo hướng nhất quán, thường cắt lúc blur mạnh nhất.
+Timeline, easing và vận tốc: REC 6–10f, tốc độ tăng trước cut rồi giảm sau cut.
+Footage + text + sound: Directional whoosh cùng hướng, text ra sớm để tránh chữ bị quét qua mặt.
+Điều kiện kỹ thuật / lỗi thường gặp: Cần overscan/mirror mép và blur theo vận tốc; đảo hướng vô cớ gây giật.
+Tự động hóa: Hoàn toàn với scene tổng hợp; footage thực cần xem chuyển động tương thích.
+Tham chiếu: Chưa xác minh trong mẫu.
+Nguồn cơ chế: REM_BLUR
+M13 — Motion blur
+Nguyên lý: Tích lũy nhiều thời điểm trong khoảng exposure; khác fade và blur nền.
+Timeline, easing và vận tốc: REC shutter 90–180°, sampling theo tốc độ; dừng rồi hình phải sắc.
+Footage + text + sound: Blur trên transition/card nhanh; không gắn SFX chỉ vì blur hiện.
+Điều kiện kỹ thuật / lỗi thường gặp: Render tốn hơn; nhiều blur xóa dấu và tạo ghost.
+Tự động hóa: Hoàn toàn khi renderer hỗ trợ temporal sampling; xử lý footage tùy thuật toán.
+Tham chiếu: Mẫu có blur/ghost trong một số chuyển cảnh, chưa xác minh thông số exposure.
+Nguồn cơ chế: REM_BLUR
+M14 — UI animation
+Nguyên lý: Thẻ, cursor, selection, progress thay trạng thái theo hành động có ý nghĩa.
+Timeline, easing và vận tốc: REC card opacity 0→1/y+20→0 trong 9f; các bước cách 4f; state update tại marker.
+Footage + text + sound: Click ở state change; soft pop khi card mới xuất hiện.
+Điều kiện kỹ thuật / lỗi thường gặp: UI mô phỏng phải phân biệt thao tác thật; quá nhiều click làm cảm giác demo giả.
+Tự động hóa: Hoàn toàn với dữ liệu và template đã duyệt.
+Tham chiếu: V1 ~00:49–00:52 checklist nhiều đầu vào; ~00:46 có khung chọn xanh.
+Nguồn cơ chế: AE_SHAPE
+M15 — Infographic animation
+Nguyên lý: Mã hóa giá trị/quan hệ bằng chiều dài, vị trí, số và đường nối.
+Timeline, easing và vận tốc: REC bar/counter 0→giá trị trong 18–30f; stagger 4f; giữ kết quả 30–60f.
+Footage + text + sound: Tick ở mốc có nghĩa; text luôn có đơn vị và nhãn.
+Điều kiện kỹ thuật / lỗi thường gặp: Không dùng ranking/độ dài giả làm dữ liệu đo; easing không làm sai trạng thái cuối.
+Tự động hóa: Hoàn toàn khi dữ liệu sạch; chọn biểu diễn và diễn giải cần review.
+Tham chiếu: V2 ~00:24–00:25 có nhãn xếp hạng dưới logo; đó là ý kiến trình bày trong video, không phải benchmark đã xác minh.
+Nguồn cơ chế: REM_INTERP
+M16 — Callout animation
+Nguyên lý: Anchor + connector + nhãn; label đứng yên hoặc theo tracked target.
+Timeline, easing và vận tốc: REC connector 6f, card 8f, text trễ 2f; giữ khi nội dung còn liên quan.
+Footage + text + sound: Click hoặc tick tại lúc nhãn chốt; tránh che mặt/tay/sản phẩm.
+Điều kiện kỹ thuật / lỗi thường gặp: Cần collision detection; nối sai vật thể hoặc label chạy liên tục làm khó đọc.
+Tự động hóa: Hoàn toàn với anchor tĩnh; bán tự động nếu anchor track.
+Tham chiếu: V2 ~01:22 có chú thích công suất bên dưới sản phẩm.
+Nguồn cơ chế: AE_SHAPE
+M17 — Animated icons
+Nguyên lý: Icon vector xuất hiện, đổi trạng thái, xoay nhẹ hoặc morph.
+Timeline, easing và vận tốc: REC scale .9→1 trong 8f, opacity 3f; chỉ morph khi path tương thích.
+Footage + text + sound: Icon người/diện tích/kịch bản giúp giảm chữ; beep nhỏ nếu là UI status.
+Điều kiện kỹ thuật / lỗi thường gặp: Icon không có nghĩa rõ phải có label; không bounce liên tục như trang trí.
+Tự động hóa: Hoàn toàn với SVG/Lottie hoặc pre-render đã duyệt.
+Tham chiếu: V2 ~00:49–00:50 icon mặt người/hộp; V1 robot trong thẻ kiến thức.
+Nguồn cơ chế: AE_SHAPE
+M18 — Particle effects
+Nguyên lý: Nhiều phần tử theo emitter, lực, tuổi thọ, alpha/scale theo life.
+Timeline, easing và vận tốc: REC seed cố định, 12–30 hạt, lifetime 12–24f cho burst thử; không dùng như mặc định.
+Footage + text + sound: Dùng cho milestone/celebration; shimmer/impact nhẹ tại burst.
+Điều kiện kỹ thuật / lỗi thường gặp: Tính tái lập cần seed; hạt che chữ/mặt làm mất phân cấp.
+Tự động hóa: Hoàn toàn trong template; tích hợp ánh sáng footage cần review.
+Tham chiếu: Chưa xác minh trong mẫu.
+Nguồn cơ chế: REM_INTERP
+M19 — 3D camera movement
+Nguyên lý: Di chuyển camera giữa những layer/object có depth thật trong scene.
+Timeline, easing và vận tốc: REC camera push 2–5% hoặc orbit 5–10° trong 45–90f; focal target giữ ổn định.
+Footage + text + sound: Dành cho sản phẩm/không gian có dữ liệu phù hợp; ambience liên tục hỗ trợ chiều sâu.
+Điều kiện kỹ thuật / lỗi thường gặp: Camera move tổng hợp khác camera tracking từ footage; thiếu depth không tạo góc khuất đúng.
+Tự động hóa: Hoàn toàn trong scene 3D đã dựng; dựng scene từ video là bán tự động/duyệt tay.
+Tham chiếu: Chưa xác minh trong mẫu.
+Nguồn cơ chế: AE_TRACK
+Ba recipe ưu tiên cho footage talking head
+Recipe UI card: card xuất hiện 9f, icon sau 2f, label sau 3f; stagger giữa card 4f. Dùng null/container để position/scale cả cụm, giữ text sắc khi đã dừng. Lúc ra: label 4f, card 6f; tránh cắt khi người nói chưa hết ý.
+Recipe blur chapter: duplicate footage nền; blur và lớp trắng/màu phủ trong 6–9f; title vào sau 2f, giữ đủ đọc rồi về talking head. Blur nền là REC tái tạo cảnh V2 ~00:12 và ~01:02; không cần camera tracking.
+Recipe selection frame: đo bounding box của text → shape viền và 4 handle; transform cả nhóm để handle không trôi. Có thể dùng SVG/shape vector, không cần AI tạo từng frame. Dùng 1 lần cho một thông điệp để tránh giả cảm giác đang thao tác editor.
+Nguồn và trạng thái kiểm chứng
+AE_SHAPE — Adobe — Shape paths and masks
+AE_TRACK — Adobe — Tracking and stabilization
+AE_ROTO — Adobe — Roto Brush and Refine Matte
+AE_TIME — Adobe — Time remapping
+AE_EASE — Adobe — Speed and Graph Editor
+REM_INTERP — Remotion — interpolate()
+REM_BLUR — Remotion — Motion blur
+FLOW — OpenCV — Optical flow
+Các nguồn trên được mở hoặc kiểm tra qua tìm kiếm web trong phiên làm việc ngày 15/11/2026. Nguồn xác minh cơ chế/tính năng; thông số thẩm mỹ là đề xuất của bản nghiên cứu. Chưa chạy các preset trong After Effects, Premiere, CapCut hoặc Remotion.

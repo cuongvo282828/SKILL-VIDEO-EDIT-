@@ -1,0 +1,388 @@
+01 — Video Editing Knowledge Base & Reference Analysis v0.1
+Phiên bản 0.1 • 15/11/2026 • Tiếng Việt. OBS = quan sát trực tiếp; MEAS = đo bằng công cụ; DOC = tài liệu nguồn; REC = công thức đề xuất; UNKNOWN = chưa xác minh. Thông số animation trong thư viện là REC, không phải keyframe gốc trích xuất từ MP4.
+Điều hướng bộ tài liệu
+01 — Video Editing Knowledge Base & Reference Analysis v0.1
+02 — Text Animation Library | AI Video Editing v0.1
+03 — Motion Graphics Library | AI Video Editing v0.1
+04 — Sound Effects Library | AI Video Editing v0.1
+05 — Editing Combination Library | AI Video Editing v0.1
+06 — AI Editing Automation Roadmap & Data Contract v0.1
+Kết luận và phạm vi
+Hai video dùng hệ visual thiên về giải thích: talking head làm điểm neo, chữ phân cấp theo ý nghĩa, thẻ UI để cụ thể hóa quy trình, đổi bố cục khi chuyển loại thông tin. V1 có nền kem, serif nghiêng và infographic rõ hơn; V2 có nhiều caption, blur chapter, icon/logo, screenshot, B-roll và đoạn giới thiệu sản phẩm.
+Quan sát này không chứng minh video viral hoặc hiệu quả retention. Không có số liệu view, completion rate, A/B test, project file hay audio stems. Không nhận diện chính xác font, tên preset, keyframe/easing gốc hoặc phần mềm creator dùng.
+Kế hoạch nghiên cứu đã triển khai
+
+
+Bước
+	Công việc
+	Đầu ra / tiêu chí
+	1 — A
+	Chuẩn hóa typography, kỹ thuật text, preset và lỗi đọc
+	Text Library T01–T13; có cơ chế, cách làm, tham chiếu và tự động hóa.
+	2 — B
+	Phân loại motion, tracking, transition và UI
+	Motion Library M01–M19; tách chuyển động synthetic với camera/object solve.
+	3 — C
+	Phân loại sound và luật đồng bộ/mix
+	Sound Library S01–S20, AUDIO01–08; kiểm license từng asset.
+	4 — D
+	Đọc metadata, lấy frame, đo waveform và cut candidates
+	Hai bảng timestamp, contact sheets và số đo; không gán âm chưa nghe kiểm.
+	5 — E
+	Kết hợp thành mẫu có điều kiện
+	P01–P12; marker và fallback rõ.
+	6 — F
+	Thiết kế schema, renderer và review gates
+	Roadmap có registry, dữ liệu mẫu, tiêu chí nghiệm thu và giới hạn.
+	
+
+Nguyên lý cần giữ trước khi thêm hiệu ứng
+Phân cấp: người xem phải biết nhìn đâu trước. Motion: đường đi và vận tốc hướng mắt vào nội dung chính, dừng đủ lâu để đọc. Âm thanh: accent làm rõ một sự kiện, không lấp mọi thay đổi. Consistency: font role, màu, khoảng cách và hướng chuyển động phải ổn định giữa các scene.
+Easing: vị trí p(t) đổi theo thời gian; vận tốc là đạo hàm thứ nhất, gia tốc là đạo hàm thứ hai. Linear cho chuyển động đều; ease-out hãm khi vào; ease-in tăng tốc khi ra; overshoot phải có vượt đích. Không suy đường cong easing từ hai ảnh tĩnh.
+Thứ tự sửa: nội dung và nhịp kể → bố cục/thời gian đọc → keyframe → blur → sound → loudness. Nếu người xem cần đọc nhưng text vẫn đang chạy, tăng thời gian giữ hoặc rút chữ trước khi thêm SFX.
+Hồ sơ hai video và số đo
+
+
+Thông số
+	V1 — 7702445259443178759
+	V2 — 7704313821384428808
+	Tên file
+	snaptik_7702445259443178759_v3.mp4
+	snaptik_7704313821384428808_v3.mp4
+	Thời lượng / số frame
+	92.066667s / 2762 frame
+	97.966667s / 2939 frame
+	Hình ảnh
+	576×1024, 9:16, H.264, 30fps
+	576×1024, 9:16, H.264, 30fps
+	Audio
+	HE-AACv2, stereo, 44100Hz, khoảng32kb/s
+	HE-AACv2, stereo, 44100Hz, khoảng32kb/s
+	Loudness / true peak / LRA
+	-12.21 LUFS-I / -0.54dBTP / 2.50LU
+	-20.11 LUFS-I / -4.99dBTP / 3.50LU
+	Dấu vết nhận diện SHA256
+	9f8dc77ebe6063016bc71f5055a0d021e791bdd0227f96428cbccee6cf304fa2
+	b0b3bd45474511cb7bf98e6f00772c6dec95e785ac4ef46f9066d2b202662cda
+	
+
+MEAS: V1 có integrated loudness cao hơn V2 7.90 LU. Đây là chênh mức chương trình đo được, không suy chất lượng âm thanh, cảm nhận to gấp đôi hay nguyên nhân mix. Khi đối chiếu, level-match trước. Các giá trị audio bitrate đã nén thấp làm hạn chế suy luận về chi tiết SFX.
+Phương pháp và giới hạn chứng cứ
+Đã giải mã cả hai file bằng FFmpeg 7.1.5, ffprobe metadata, lấy khung hình tổng quan mỗi khoảng 3 giây, lấy thêm các frame tại timestamp yêu cầu bằng seek và kiểm chuỗi hình ở đầu video/các đoạn chuyển bố cục. Những ảnh này là frame trích để kiểm visual, không phải chỉ I-frame và không phải animation keyframe của project.
+Cut candidates: dùng select gt(scene,0.28), lưu PTS và scene score. V1 có 13 frame vượt ngưỡng, gộp các lần trong 150ms còn 11 cụm; V2 có 5. Các số này KHÔNG phải tổng số cut: graphic thay nền dễ kích hoạt, còn cut giữa talking head tương tự dễ bị bỏ sót. Không tính nhịp cắt trung bình từ chúng.
+RMS theo cửa sổ 10ms trên mono 16kHz: 9206 mẫu V1, 9796 mẫu V2. Spectral flux từ STFT 512 mẫu/hop160 tạo danh sách transient ứng viên; lấy tối đa 15 đỉnh cách nhau ≥0.3s để kiểm sau. Không dùng detector này để gọi tên SFX hay BPM.
+Ví dụ audit: V1 transient ứng viên 13.000s gần cut candidate13.067s; V2 transient85.820s gần cut85.833s. Khoảng gần nhau chỉ là quan sát thời gian, không đủ kết luận creator đã sync impact/whoosh. Chưa có nghe kiểm, ASR, forced alignment hoặc stem separation.
+Module D — V1: phân tích theo thời gian
+Timestamp là vùng phân tích, nhiều ranh giới ~ được ước lượng từ frame lấy mẫu. Mốc ba chữ số xuất phát detector khi có. U trong cột Sound Effect = UNKNOWN: chưa nghe kiểm, không kết luận có/không có SFX. Cột cách tái tạo là REC, không xác định workflow gốc.
+
+
+Timestamp
+	Visual
+	Text Effect
+	Motion
+	Sound Effect
+	Mục đích
+	Cách tái tạo
+	00:00–00:03.93
+	Người nói áo xanh; hook phía trên
+	Hiện dần ký tự/từ; serif nghiêng, nhấn xanh
+	Text reveal; có đoạn chữ mờ
+	U
+	Đặt vấn đề prompt→skill
+	T03/T13; text riêng + reveal
+	00:03.93–~00:13.07
+	Nền kem; workflow, tài liệu, robot
+	Headline hai cấp; serif đen/xanh
+	Card/step/connector; trạng thái UI
+	U
+	Giải thích skill bằng hình
+	M05/M14; shape+card template
+	00:13.07–00:14.70
+	Trở lại người nói
+	Câu ngắn phía trên
+	Cut thay bố cục
+	U
+	Nối giải thích với luận điểm
+	NLE cut + title
+	00:14.70–~00:23
+	Thẻ 3 nguyên tắc, phạm vi skill
+	Headline + subhead; nhấn chữ xanh
+	Checklist card; người nói nhỏ bên dưới
+	U
+	Phân cấp điều kiện sử dụng
+	P05/P08; template card + PIP
+	~00:23–00:30
+	Sơ đồ video/footage→kết quả
+	Nhãn cạnh icon, text minh họa
+	UI diagram và preview điện thoại
+	U
+	Cụ thể hóa ví dụ edit video
+	M14/M15; SVG + crop footage
+	~00:30–00:41
+	Một file chính; tách tài liệu phụ
+	Số chương; title serif nghiêng
+	File card rút gọn, folder/connector
+	U
+	Giải thích cấu trúc thông tin
+	M01/M14; precomp từng card
+	~00:41–00:45.37
+	Thẻ kiểm thử nhiều đầu vào
+	Headline nhấn xanh
+	Shape đầu vào và skill card; PIP
+	U
+	Đưa nguyên tắc kiểm thử
+	M05/M14; shape + states
+	00:45.37–00:48.73
+	Talking head; ví dụ chữ
+	Nền xanh, viền/handle chọn
+	Selection frame quanh chữ
+	U
+	Nêu ví dụ ngắn/dài
+	P07; bbox + 4 handles
+	00:48.73–00:53.33
+	Nền kem; bốn tình huống test
+	Headline ổn định
+	Checklist tối thay trạng thái
+	U
+	Biến lời khuyên thành cases
+	P05; animate row state
+	00:53.33–01:00.83
+	Talking head, key icon, phát hiện lỗi
+	Serif/sans; từ LỖI/Output nhấn
+	Icon chuyển vị trí; title theo cụm
+	U
+	Nhấn vòng lặp sửa và tự đánh giá
+	T01/T13 + M17
+	01:00.83–01:03.57
+	Grid nhiều phiên bản video
+	Nhãn Gốc / AI edit
+	Bố cục so sánh bốn panel
+	U
+	Cho thấy kết quả khác nhau
+	P12; 4 crop + label cố định
+	01:03.57–01:07.43
+	Nền kem, nhiều khâu công việc AI
+	Headline hai cấp
+	Lưới icon 3×3; người nói nhỏ
+	U
+	Mở rộng phạm vi ứng dụng
+	M05/M17; grid template
+	01:07.43–01:22.87
+	Talking head; hình dự án và giải thưởng
+	Tên dự án lớn, nhấn xanh/trắng
+	Media card trên đầu; đổi asset
+	U
+	Đưa ví dụ và xây tính thuyết phục
+	P08; asset card, nội dung cần kiểm riêng
+	01:22.87–~01:30
+	Thẻ hợp lực và thông điệp
+	Serif đen/xanh, nhấn cụm nghiêng
+	Flowchart; PIP người nói
+	U
+	Tổng hợp quan hệ vai trò
+	M01/M14; không cần 3D
+	~01:30–01:32.07
+	Talking head kết
+	Comment / nhận tài liệu
+	Text phía trên người nói
+	U
+	CTA rõ và ngắn
+	T13; giữ đủ thời gian đọc
+	
+
+Module D — V2: phân tích theo thời gian
+Các dòng ranh giới ~ không phải điểm cắt đã xác nhận frame chính xác. U có cùng nghĩa như bảng V1. Text/caption đã thấy trên hình không tự chứng minh khớp lời nói.
+
+
+Timestamp
+	Visual
+	Text Effect
+	Motion
+	Sound Effect
+	Mục đích
+	Cách tái tạo
+	00:00–~00:03
+	Talking head áo trắng, series
+	Chữ series lớn rồi thu nhỏ; sans đậm
+	Scale/đổi bố cục nhãn series
+	U
+	Nhận diện chuỗi nội dung
+	T01 + transform nhóm
+	~00:03–00:11.5
+	Các thumbnail nhỏ phía trên
+	Caption trắng; keyword serif/sans
+	Thumbnail tích lũy theo cụm
+	U
+	Minh họa vấn đề đang kể
+	M05/P08; card + caption
+	~00:11.5–00:14.3
+	Nền footage blur và sáng
+	4 điều / cách edit video bằng AI
+	Blur nền, text phân lớp
+	U
+	Giới thiệu cấu trúc nội dung
+	P04; blur+wash+headline
+	~00:14.3–00:26.5
+	Mục 1, logo Claude/Manus/ChatGPT
+	Số lớn; caption; nhãn xếp hạng
+	Card logo, badge số
+	U
+	So sánh/ý kiến về công cụ
+	P06; ranking không coi là benchmark
+	~00:26.5–00:38
+	Mục 2, robot/video icon, lợi ích
+	Caption cụm; nền nhấn xanh
+	Có đoạn nền blur tối; list tích lũy
+	U
+	Đề xuất đóng gói quy trình
+	P01/P05; sound REC riêng
+	~00:38–00:45.13
+	Screenshot GitHub và PIP
+	Tiêu đề trên screenshot
+	Card screenshot + PIP crop
+	U
+	Dẫn ví dụ repo
+	P08; screenshot không tự xác nhận claim
+	00:45.13–~00:51
+	Mục 3, mặt người/diện tích
+	Caption serif/sans; nhấn từ
+	Icon và khung quanh vùng đầu
+	U
+	Hướng dẫn chất lượng footage
+	M17; anchor screen-space trước
+	~00:51–00:54
+	Các vùng xanh trong khung hình
+	Caption trong vùng giữa/dưới
+	Overlay vùng đặt nội dung; icon
+	U
+	Giải thích khoảng trống bố cục
+	Shape overlays + text, M05
+	~00:54–00:58.70
+	Kịch bản và hai gạch đầu dòng
+	Caption + checklist
+	Script card; bullet tích lũy
+	U
+	Nối footage với cách nói
+	P05/M14
+	00:58.70–~01:01.5
+	Khung người nói gần hơn; mục 4
+	Yêu cầu cao đầu ra / phong cách
+	Cut sang crop gần; mini-card
+	U
+	Đặt kỳ vọng về AI
+	M11 bản cut; không mặc định zoom animated
+	~01:01.5–01:03.8
+	Nền blur sáng
+	AI thay thế bạn / toàn bộ…
+	Chapter title nhiều cấp
+	U
+	Nhấn giới hạn vai trò AI
+	P04; không cần camera solve
+	~01:03.8–01:12
+	Talking head; CapCut, AI và mình
+	Keyword xen serif/sans
+	Icon/media card; hai vai trò song song
+	U
+	Chia vai trò tự động/sáng tạo
+	M05/M17 + T13
+	~01:12–01:18.5
+	Laptop, iPad và người nói
+	Caption/nhãn thiết bị
+	B-roll xen talking head
+	U
+	Chuyển sang ngữ cảnh thiết bị
+	NLE B-roll; graphic tối giản
+	~01:18.5–01:25.83
+	Giới thiệu sạc và cận sản phẩm
+	Tên sản phẩm, USB-C/callout
+	Product card và spec label
+	U
+	Minh họa sản phẩm/tính năng
+	P09; spec là nội dung video, chưa kiểm sản phẩm
+	01:25.83–01:34.40
+	B-roll bàn làm việc, ổ điện, sạc
+	Plate thông tin trên/bên dưới
+	Thay góc cảnh; nhãn công suất
+	U
+	Chứng minh ngữ cảnh sử dụng
+	NLE cuts + P09; tránh graphic che cổng
+	01:34.40–01:37.97
+	Talking head; repo/bộ skill
+	CTA + mixed typography
+	Hai icon card phía trên
+	U
+	Quay về tài liệu/skill
+	P03/P08; CTA cuối
+	
+
+Đánh giá nhất quán và hướng tái tạo
+V1: nền kem, xanh cyan, serif nghiêng, thẻ trắng, icon và PIP lặp lại cùng vai trò, tạo ngôn ngữ giải thích thống nhất. Những thẻ nhiều chữ nhỏ cần kiểm trên điện thoại; file nguồn576p giới hạn độ sắc nếu phóng 1080p. Đây là nhận định thiết kế, không phải kết quả thử nghiệm người dùng.
+V2: sans đậm + serif nghiêng, plate xanh/trắng, số chương và logo card kết nối talking head với ví dụ. Đoạn sản phẩm khoảng01:18.5–01:34.4 chuyển sang B-roll nhưng vẫn giữ motif caption/card. Có thể tái tạo bằng graphics2D và editing thường, chưa thấy lý do bắt buộc camera3D.
+Ưu tiên preset: mixed typography, plate nhấn từ, card stagger, checklist state, blur chapter, PIP screenshot, selection handles và callout sản phẩm. Giữ tracking3D/particle/speed ramp ngoài phạm vi sao chép mẫu cho đến khi có bằng chứng hoặc mục tiêu riêng.
+Hình chứng cứ
+Bốn hình dưới đây gồm các frame chọn lọc và waveform. Nhãn thời gian frame lấy bằng seek; hình waveform hiển thị RMS/flux ứng viên, không gắn nhãn SFX.
+7702445259443178759 — frame và waveform
+  
+
+Frame chọn lọc; để nhận diện bố cục và chữ. Không dùng để suy chính xác easing hoặc tên font.
+  
+
+MEAS: đường RMS10ms (mono), flux và các vạch ứng viên; xem phần phương pháp để hiểu giới hạn.
+7704313821384428808 — frame và waveform
+  
+
+Frame chọn lọc; để nhận diện bố cục và chữ. Không dùng để suy chính xác easing hoặc tên font.
+  
+
+MEAS: đường RMS10ms (mono), flux và các vạch ứng viên; xem phần phương pháp để hiểu giới hạn.
+Trạng thái những gì đã và chưa kiểm chứng
+
+
+Loại
+	Đã thực hiện
+	Giới hạn
+	Media
+	Decode metadata, frame, waveform, loudness, scene candidates
+	Không có project gốc; không trích keyframe/easing gốc.
+	Visual
+	Xem contact sheets và chuỗi frame chi tiết
+	Không xác minh mọi frame hay mọi onset phụ đề.
+	Audio
+	Đo LUFS/true peak/LRA, RMS, spectral flux
+	Chưa nghe kiểm, không phân loại SFX/BPM/giọng.
+	Nguồn
+	Ưu tiên Adobe, Remotion, FFmpeg, librosa, OpenCV, license chính chủ
+	Tính năng được đối chiếu tài liệu, chưa chạy trên các editor.
+	Automation
+	Registry/schema/pattern và guardrail có cấu trúc
+	Chưa có hệ AI dựng video chạy end-to-end hoặc render mẫu.
+	Hiệu quả
+	Nhận định thiết kế dựa phân cấp/đọc hiểu
+	Không có retention/A-B hoặc bằng chứng viral.
+	
+
+Nguồn và trạng thái kiểm chứng
+AE_TEXT — Adobe — Animating text
+AE_EASE — Adobe — Speed and Graph Editor
+AE_TRACK — Adobe — Tracking and stabilization
+AE_ROTO — Adobe — Roto Brush and Refine Matte
+AE_TIME — Adobe — Time remapping
+AE_SHAPE — Adobe — Shape paths and masks
+AE_SCRIPT — Adobe — ExtendScript / JSX
+AE_UXP — Adobe — After Effects UXP, beta documentation
+PP_UXP — Adobe — Premiere UXP API
+DUCK — Adobe — Automatically duck audio
+CAPCUT — CapCut — Keyframes
+CAP_LICENSE — CapCut — Materials License Agreement, bản US
+REM_SPRING — Remotion — spring()
+REM_INTERP — Remotion — interpolate()
+REM_CAP — Remotion — Captions API
+REM_BLUR — Remotion — Motion blur
+FFMPEG — FFmpeg — Filters reference
+BEAT — librosa — beat_track
+ONSET — librosa — onset_detect
+FLOW — OpenCV — Optical flow
+FREESOUND — Freesound — Licenses and attribution
+PIXABAY — Pixabay — Content License Summary
+ADOBE_LEARN — Adobe Learn — Dynamic movement with Graph Editor
+Các nguồn trên được mở hoặc kiểm tra qua tìm kiếm web trong phiên làm việc ngày 15/11/2026. Nguồn xác minh cơ chế/tính năng; thông số thẩm mỹ là đề xuất của bản nghiên cứu. Chưa chạy các preset trong After Effects, Premiere, CapCut hoặc Remotion.

@@ -1,0 +1,282 @@
+04 — Sound Effects Library | AI Video Editing v0.1
+Phiên bản 0.1 • 15/11/2026 • Tiếng Việt. OBS = quan sát trực tiếp; MEAS = đo bằng công cụ; DOC = tài liệu nguồn; REC = công thức đề xuất; UNKNOWN = chưa xác minh. Thông số animation trong thư viện là REC, không phải keyframe gốc trích xuất từ MP4.
+Điều hướng bộ tài liệu
+01 — Video Editing Knowledge Base & Reference Analysis v0.1
+02 — Text Animation Library | AI Video Editing v0.1
+03 — Motion Graphics Library | AI Video Editing v0.1
+04 — Sound Effects Library | AI Video Editing v0.1
+05 — Editing Combination Library | AI Video Editing v0.1
+06 — AI Editing Automation Roadmap & Data Contract v0.1
+Module C — thiết kế âm thanh theo sự kiện
+Trạng thái hai video: đã giải mã audio và đo waveform/loudness; chưa nghe kiểm được nội dung âm thanh trong phiên công cụ này. Vì vậy KHÔNG gán whoosh/pop/click, không xác nhận nhạc nền, BPM, nhịp giọng hoặc source separation cho video gốc. Các S01–S20 dưới đây là thư viện REC để dựng lại hoặc thiết kế mới.
+Volume không có giá trị tuyệt đối dùng chung vì mỗi file được master khác nhau. REC: cân asset trước, bắt đầu SFX thấp hơn giọng cùng vùng khoảng 8–14dB về mức cảm nhận, nghe kiểm rồi chỉnh. Tỷ lệ này là điểm xuất phát, không phải kết quả đo mẫu.
+
+
+ID
+	Loại
+	Nhóm
+	Visual / anchor
+	S01
+	Whoosh
+	Chuyển cảnh
+	Slide/zoom nhanh; apex âm tại vận tốc hình lớn nhất, không mặc định tại frame đầu.
+	S02
+	Swipe
+	Chuyển cảnh
+	Card swipe / màn hình đổi trang; đặt transient tại điểm vượt mép hoặc snap vào vị trí.
+	S03
+	Reverse whoosh
+	Chuyển cảnh
+	Title reveal / đổi chương; cuối phần hút đúng tại reveal hoặc impact.
+	S04
+	Riser
+	Chuyển cảnh
+	Chuỗi dẫn tới kết quả; kết thúc ở reveal, có thể dừng tức thì để làm khoảng trống.
+	S05
+	Impact
+	Chuyển cảnh
+	Card snap / con số lớn; transient trùng contact hoặc scale peak.
+	S06
+	Pop
+	Text
+	Keyword pop/bounce; đặt tại lúc chữ lần đầu đọc rõ hoặc scale peak, chọn một anchor nhất quán.
+	S07
+	Click
+	Text
+	Dấu chọn/keyword plate xuất hiện; transient tại state change.
+	S08
+	Typing
+	Text
+	Typewriter lệnh/prompt; onset theo nhóm ký tự hoặc nhịp gõ, không nhất thiết từng glyph.
+	S09
+	Bubble
+	Text
+	Message bubble / tip nhẹ; pop tại bubble mở gần xong.
+	S10
+	Digital tick
+	Text
+	Checklist/đếm bước; tick ở checkbox chuyển trạng thái.
+	S11
+	UI click
+	Motion
+	Cursor chạm / nút đổi trạng thái; đúng frame nhấn/nhả theo thiết kế.
+	S12
+	Interface beep
+	Motion
+	Icon hoàn tất, kết nối thành công; cue tại đổi trạng thái.
+	S13
+	Glitch
+	Motion
+	UI lỗi / hình phân mảnh; transient khớp frame disruption.
+	S14
+	Digital sweep
+	Motion
+	Scan line / graph reveal; envelope theo tiến độ quét.
+	S15
+	Mechanical movement
+	Motion
+	Panel trượt / thiết bị khóa vị trí; onset lúc motor bắt đầu, click kết thúc.
+	S16
+	Bass drop
+	Cinematic
+	Reveal lớn / kết luận trọng tâm; xác định marker rơi năng lượng.
+	S17
+	Sub impact
+	Cinematic
+	Con số/kết quả nặng; body tại contact, transient nếu có cùng marker.
+	S18
+	Cinematic hit
+	Cinematic
+	Mở chương đặc biệt / reveal sản phẩm; transient tại accent chính.
+	S19
+	Ambience
+	Cinematic
+	Làm cầu âm giữa B-roll/talking head; không cần khóa vào từng keyframe.
+	S20
+	Reverb tail
+	Cinematic
+	Cuối chương / chuyển không gian; tail xuất phát từ hit rồi decay.
+	
+
+Thư viện 20 loại âm thanh
+S01 — Whoosh
+Vai trò cảm xúc / vì sao hiệu quả: Nhiễu chuyển động qua không gian, tạo cảm giác tốc độ.
+Chuyển động phù hợp & đồng bộ: Slide/zoom nhanh; apex âm tại vận tốc hình lớn nhất, không mặc định tại frame đầu.
+Volume, pitch, EQ, reverb — REC: REC 180–400ms; high-pass thử 150–250Hz nếu đục, pan theo hướng với biên độ nhẹ. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không dùng cho đổi phụ đề tĩnh; liên tiếp nhiều whoosh làm mất accent.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S02 — Swipe
+Vai trò cảm xúc / vì sao hiệu quả: Quẹt ngắn, khô, phù hợp thao tác một mặt phẳng.
+Chuyển động phù hợp & đồng bộ: Card swipe / màn hình đổi trang; đặt transient tại điểm vượt mép hoặc snap vào vị trí.
+Volume, pitch, EQ, reverb — REC: REC 80–180ms; decay ngắn, ít reverb, pitch thay rất nhẹ giữa các cue nếu cần. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không dùng âm dài cho chuyển động chỉ vài frame.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S03 — Reverse whoosh
+Vai trò cảm xúc / vì sao hiệu quả: Năng lượng tăng về đích, tạo mong đợi.
+Chuyển động phù hợp & đồng bộ: Title reveal / đổi chương; cuối phần hút đúng tại reveal hoặc impact.
+Volume, pitch, EQ, reverb — REC: REC 200–600ms trước marker; trim silence, fade 2–5ms ở mép để tránh click. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Tránh phát sau khi chữ đã đứng yên; tránh lặp trước mọi câu.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S04 — Riser
+Vai trò cảm xúc / vì sao hiệu quả: Tăng năng lượng/pitch/noise trong một đoạn chuẩn bị.
+Chuyển động phù hợp & đồng bộ: Chuỗi dẫn tới kết quả; kết thúc ở reveal, có thể dừng tức thì để làm khoảng trống.
+Volume, pitch, EQ, reverb — REC: REC 0.5–1.5s, automate gain; EQ giảm phần cạnh tranh với giọng. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không kéo dài dưới lời giải thích vốn cần bình tĩnh.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S05 — Impact
+Vai trò cảm xúc / vì sao hiệu quả: Transient và body tạo trọng lượng cho điểm chạm.
+Chuyển động phù hợp & đồng bộ: Card snap / con số lớn; transient trùng contact hoặc scale peak.
+Volume, pitch, EQ, reverb — REC: REC 100–350ms; layer body vừa đủ, attack rõ, cắt tail trước câu mới. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không dùng mỗi caption; tránh làm câu thường thành kịch tính giả.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S06 — Pop
+Vai trò cảm xúc / vì sao hiệu quả: Nảy ngắn, thân thiện, ít trọng lượng.
+Chuyển động phù hợp & đồng bộ: Keyword pop/bounce; đặt tại lúc chữ lần đầu đọc rõ hoặc scale peak, chọn một anchor nhất quán.
+Volume, pitch, EQ, reverb — REC: REC 50–150ms; gain nhỏ, có thể pitch ±1 semitone giữa cue khác nhau. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không dùng cho thông tin nghiêm túc hoặc từng âm tiết.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S07 — Click
+Vai trò cảm xúc / vì sao hiệu quả: Xác nhận ngắn, định vị một sự kiện.
+Chuyển động phù hợp & đồng bộ: Dấu chọn/keyword plate xuất hiện; transient tại state change.
+Volume, pitch, EQ, reverb — REC: REC 15–60ms; cắt gắt ở 2–5kHz nếu chói, ít reverb. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Tránh click dày gây giống lỗi số; không che phụ âm lời nói.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S08 — Typing
+Vai trò cảm xúc / vì sao hiệu quả: Chuỗi nhấn bàn phím gợi thao tác nhập.
+Chuyển động phù hợp & đồng bộ: Typewriter lệnh/prompt; onset theo nhóm ký tự hoặc nhịp gõ, không nhất thiết từng glyph.
+Volume, pitch, EQ, reverb — REC: REC burst 100–500ms; random có seed ±1f và ±1dB sau khi thử nghe. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không tạo kỳ vọng thao tác thật nếu chỉ minh họa; tránh gõ dưới đoạn thuyết minh dày.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S09 — Bubble
+Vai trò cảm xúc / vì sao hiệu quả: Tông tròn, mềm, có cảm giác UI/chat.
+Chuyển động phù hợp & đồng bộ: Message bubble / tip nhẹ; pop tại bubble mở gần xong.
+Volume, pitch, EQ, reverb — REC: REC 80–220ms; high-pass nếu boomy; wet thấp. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Tránh cho bảng kết quả chuyên môn cần cảm giác chắc chắn.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S10 — Digital tick
+Vai trò cảm xúc / vì sao hiệu quả: Tick sáng, tối giản; đánh dấu tiến trình nhỏ.
+Chuyển động phù hợp & đồng bộ: Checklist/đếm bước; tick ở checkbox chuyển trạng thái.
+Volume, pitch, EQ, reverb — REC: REC 20–80ms, tail ngắn; có thể tách tần với voice bằng EQ động. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không tăng cao độ liên tục nếu không có tiến trình mang nghĩa.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S11 — UI click
+Vai trò cảm xúc / vì sao hiệu quả: Feedback của hành động giao diện, không chỉ trang trí.
+Chuyển động phù hợp & đồng bộ: Cursor chạm / nút đổi trạng thái; đúng frame nhấn/nhả theo thiết kế.
+Volume, pitch, EQ, reverb — REC: REC 20–80ms; layer ít, cân mono rõ. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không đặt trước hành động vì người xem thấy UI mất phản hồi.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S12 — Interface beep
+Vai trò cảm xúc / vì sao hiệu quả: Tone báo trạng thái, có thể tích cực/cảnh báo theo ngữ cảnh.
+Chuyển động phù hợp & đồng bộ: Icon hoàn tất, kết nối thành công; cue tại đổi trạng thái.
+Volume, pitch, EQ, reverb — REC: REC 70–200ms; tránh tone dài ở dải làm che giọng; decay ngắn. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không dùng beep cảnh báo cho kết quả bình thường.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S13 — Glitch
+Vai trò cảm xúc / vì sao hiệu quả: Đứt/gãy/cắt nhịp, tạo cảm giác sai lệch hoặc sự cố.
+Chuyển động phù hợp & đồng bộ: UI lỗi / hình phân mảnh; transient khớp frame disruption.
+Volume, pitch, EQ, reverb — REC: REC 80–250ms; band-limit, kiểm peak và âm chói. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không dùng mặc định cho nội dung AI; gây liên tưởng hỏng hoặc thiếu tin cậy.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S14 — Digital sweep
+Vai trò cảm xúc / vì sao hiệu quả: Quét tần số/noise gợi scan hoặc di chuyển dữ liệu.
+Chuyển động phù hợp & đồng bộ: Scan line / graph reveal; envelope theo tiến độ quét.
+Volume, pitch, EQ, reverb — REC: REC 200–600ms, automate filter/gain; giữ phần giọng nổi hơn. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không kéo sweep khi graphic chỉ đứng yên.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S15 — Mechanical movement
+Vai trò cảm xúc / vì sao hiệu quả: Motor/gears/servo đem cảm giác vật lý cho chuyển động.
+Chuyển động phù hợp & đồng bộ: Panel trượt / thiết bị khóa vị trí; onset lúc motor bắt đầu, click kết thúc.
+Volume, pitch, EQ, reverb — REC: REC layer motor 200–700ms + latch 30–80ms; pitch theo tốc độ chỉ khi phù hợp. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không gắn tiếng kim loại nặng cho card UI nhẹ.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S16 — Bass drop
+Vai trò cảm xúc / vì sao hiệu quả: Chuyển năng lượng xuống vùng trầm hoặc thay đổi pitch, tạo bước ngoặt.
+Chuyển động phù hợp & đồng bộ: Reveal lớn / kết luận trọng tâm; xác định marker rơi năng lượng.
+Volume, pitch, EQ, reverb — REC: REC 300–900ms; giảm sub dưới vùng điện thoại không tái tạo hữu ích; kiểm loa nhỏ. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không dùng để lấp mọi khoảng trống; có thể làm limiter bơm.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S17 — Sub impact
+Vai trò cảm xúc / vì sao hiệu quả: Xung trầm tạo khối lượng, thường cần lớp trung cao để nghe trên điện thoại.
+Chuyển động phù hợp & đồng bộ: Con số/kết quả nặng; body tại contact, transient nếu có cùng marker.
+Volume, pitch, EQ, reverb — REC: REC 150–500ms; mono vùng trầm, cắt infrasonic, tránh cộng phase bất lợi. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Tránh dùng đơn độc rồi tăng gain quá mức vì không nghe trên loa nhỏ.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S18 — Cinematic hit
+Vai trò cảm xúc / vì sao hiệu quả: Nhiều lớp transient/body/tail tạo sự kiện lớn.
+Chuyển động phù hợp & đồng bộ: Mở chương đặc biệt / reveal sản phẩm; transient tại accent chính.
+Volume, pitch, EQ, reverb — REC: REC 300–1000ms; body ngắn dưới giọng; reverb tail duck khi lời trở lại. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không phù hợp mọi video giáo dục; dễ lấn nội dung và thành trailer giả.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S19 — Ambience
+Vai trò cảm xúc / vì sao hiệu quả: Nền môi trường duy trì cảm giác cùng không gian.
+Chuyển động phù hợp & đồng bộ: Làm cầu âm giữa B-roll/talking head; không cần khóa vào từng keyframe.
+Volume, pitch, EQ, reverb — REC: REC loop có crossfade 0.3–1s, EQ bỏ rumble, stereo vừa; âm nền thấp hơn giọng. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không thêm ambience mâu thuẫn địa điểm nếu muốn tính chân thực.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+S20 — Reverb tail
+Vai trò cảm xúc / vì sao hiệu quả: Đuôi phản xạ kéo dài sự kiện, không nhất thiết là file âm độc lập.
+Chuyển động phù hợp & đồng bộ: Cuối chương / chuyển không gian; tail xuất phát từ hit rồi decay.
+Volume, pitch, EQ, reverb — REC: REC decay 0.2–0.8s, pre-delay thử 10–25ms, lọc low end; automate duck dưới thoại. Bắt đầu gain thấp dưới voice; không pitch-shift nếu làm đổi chức năng nhận diện.
+Không dùng khi: Không làm mờ chuỗi phụ âm hoặc kéo tail qua ý mới không liên quan.
+Nguồn asset gợi ý: Freesound/Pixabay; phải chọn đúng từng file và lưu license. Chưa tải hoặc kiểm duyệt asset cụ thể cho mục này.
+Tám quy tắc sound design nâng cao
+AUDIO01 — Audio layering
+Mỗi lớp có chức năng: transient định thời, body tạo trọng lượng, air/tail tạo không gian. Bắt đầu 1 lớp, chỉ thêm khi thiếu chức năng. REC layer whoosh + click, giảm mỗi lớp trước khi cộng; không xếp ba transient lớn cùng lúc.
+Tự động chọn asset theo tag, nhưng phase/timbre cần nghe kiểm.
+AUDIO02 — Sound synchronization
+Lưu marker perceptual trong asset (transient/apex/tail), không chỉ file start. audioStart = visualAnchor − assetAnchor. Nếu visual peak f7 tại 30fps và asset peak ở 40ms, start = t0 + 7/30 − .040.
+Có thể tự động hoàn toàn sau khi marker và visual anchor đã duyệt; audio có độ phân giải sample, hình lượng tử theo frame.
+AUDIO03 — Beat matching
+Beat là nhịp chu kỳ được ước lượng; onset chỉ là khởi phát âm. Giữ câu nói và ý nghĩa ưu tiên, chỉ snap nhấn lớn tới beat khi không làm sai timing. Không suy BPM từ các đỉnh waveform hỗn hợp.
+librosa cho ứng viên beat/onset; music stem và nghe kiểm giúp giảm bắt nhầm phụ âm.
+AUDIO04 — Audio ducking
+Music/SFX giảm khi voice có mặt. REC sidechain attack 10–30ms, release 150–300ms, gain reduction 3–6dB để bắt đầu; chọn lại theo voice/nhạc. Trong Premiere có Essential Sound Ducking; FFmpeg có sidechaincompress.
+Tự động có điều kiện; nghe kiểm pumping ở khoảng ngắt lời và tail nhạc.
+AUDIO05 — Frequency separation
+Phân công dải năng lượng: voice rõ, impact không ù, click không đè phụ âm. REC thử giảm SFX 2–4dB ở vùng 2–4kHz khi trùng lời; EQ động tốt hơn cắt cố định mọi lúc. Không coi con số là chuẩn cho mọi giọng.
+Đo spectrum hỗ trợ, quyết định cuối bằng nghe trên tai nghe và loa điện thoại.
+AUDIO06 — Stereo panning
+Pan theo hướng graphic khi có lý do; voice ưu tiên giữa. REC pan SFX trái/phải nhẹ khoảng 15–30%, không cực đoan. Kiểm fold-down mono để tránh mất cue.
+Tự động từ vector chuyển động; review nếu nhiều cue chạy cùng lúc.
+AUDIO07 — Audio transitions
+J-cut/L-cut cho lời/ambience nối cảnh; crossfade constant-power khi phù hợp. REC crossfade 80–200ms cho bed ngắn; 2–5ms fade mép file chống click. Không crossfade làm trùng hai từ thoại.
+NLE/FFmpeg acrossfade; tự động cho ambience, bán tự động cho speech edits.
+AUDIO08 — Loudness normalization
+Đo integrated LUFS, true peak và LRA trước/sau; chuẩn hóa không phải tăng tất cả peak tới 0. REC -16 LUFS-I, true peak ≤-1.5dBTP cho bản thử, không phải chuẩn bắt buộc TikTok. FFmpeg loudnorm hai-pass khi cần đo trước và kiểm lại output.
+Tự động đo/xử lý được; nghe kiểm méo, pumping và âm nhỏ trên thiết bị thực.
+Kết quả đo hai file nguồn
+
+
+File rút gọn
+	LUFS-I đầu vào
+	True peak đầu vào
+	LRA
+	Diễn giải
+	770244…
+	-12.21
+	-0.54 dBTP
+	2.50 LU
+	Mức integrated cao hơn file kia 7.90 LU; không suy limiter hay clipping chỉ từ số này.
+	770431…
+	-20.11
+	-4.99 dBTP
+	3.50 LU
+	Cần cân mức khi nghe đối chiếu. Chưa xác định nguồn gây transient.
+	
+
+MEAS bằng FFmpeg 7.1.5 loudnorm, dùng các trường input_i/input_tp/input_lra trên stereo gốc. Chỉ thực hiện pass phân tích, không thay file gốc; các trường output do bộ lọc mô phỏng không được dùng làm kết quả nguồn. RMS 10ms và spectral flux được tính trên bản giải mã mono 16kHz, nên không so trực tiếp sample peak mono với true peak stereo.
+Nguồn âm thanh và điều kiện sử dụng
+Freesound: kiểm từng asset. CC0 và CC BY có phạm vi khác nhau; CC BY cần attribution đúng license, CC BY-NC không phù hợp mục đích thương mại nếu không có quyền bổ sung. Lưu tác giả, URL, license/version và các chỉnh sửa. Nguồn: FREESOUND.
+Pixabay: license summary cho phép dùng/chỉnh sửa theo điều kiện; không phân phối asset nguyên dạng như sản phẩm độc lập. Terms đầy đủ mới là ràng buộc; có thể còn quyền bên thứ ba. Lưu URL asset, ngày tải và bằng chứng license. Nguồn: PIXABAY.
+CapCut: không mặc định mọi sound được dùng thương mại hoặc dùng trên mọi nền tảng. Bản Materials License Agreement đã đọc là bản áp dụng người dùng US; phần Commercial Sounds giới hạn nền tảng và yêu cầu quyền riêng cho việc ngoài phạm vi. Đây không phải kết luận pháp lý cho tài khoản Việt Nam; cần đối chiếu điều khoản hiển thị tại tài khoản/khu vực và asset. Nguồn: CAP_LICENSE.
+Asset manifest tối thiểu: assetId, filename, sha256, creator, sourceUrl, downloadedAt, licenseId, licenseUrl, attributionText, commercialUse, allowedPlatforms, territorialScope, transientOffsetMs, apexOffsetMs, tailMs, loudnessLufs, modifications. Giá trị chưa biết phải null hoặc pending, không điền mặc định “free”.
+Bộ thư viện này mô tả và dẫn nguồn, không đóng gói lại file SFX của người khác. Học quy tắc dựng trong ngữ cảnh này không có nghĩa đã huấn luyện mô hình mới hoặc đã có quyền dùng âm thanh làm dữ liệu training.
+Nguồn và trạng thái kiểm chứng
+FFMPEG — FFmpeg — Filters reference
+DUCK — Adobe — Automatically duck audio
+ONSET — librosa — onset_detect
+BEAT — librosa — beat_track
+FREESOUND — Freesound — Licenses and attribution
+PIXABAY — Pixabay — Content License Summary
+CAP_LICENSE — CapCut — Materials License Agreement, bản US
+Các nguồn trên được mở hoặc kiểm tra qua tìm kiếm web trong phiên làm việc ngày 15/11/2026. Nguồn xác minh cơ chế/tính năng; thông số thẩm mỹ là đề xuất của bản nghiên cứu. Chưa chạy các preset trong After Effects, Premiere, CapCut hoặc Remotion.

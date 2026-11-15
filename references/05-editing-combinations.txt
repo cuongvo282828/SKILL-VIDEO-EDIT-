@@ -1,0 +1,168 @@
+05 — Editing Combination Library | AI Video Editing v0.1
+Phiên bản 0.1 • 15/11/2026 • Tiếng Việt. OBS = quan sát trực tiếp; MEAS = đo bằng công cụ; DOC = tài liệu nguồn; REC = công thức đề xuất; UNKNOWN = chưa xác minh. Thông số animation trong thư viện là REC, không phải keyframe gốc trích xuất từ MP4.
+Điều hướng bộ tài liệu
+01 — Video Editing Knowledge Base & Reference Analysis v0.1
+02 — Text Animation Library | AI Video Editing v0.1
+03 — Motion Graphics Library | AI Video Editing v0.1
+04 — Sound Effects Library | AI Video Editing v0.1
+05 — Editing Combination Library | AI Video Editing v0.1
+06 — AI Editing Automation Roadmap & Data Contract v0.1
+Editing Pattern = text + motion + audio + điều kiện
+P01–P12 là ID nội bộ. Chỉ sự phối hợp visual được chỉ ra ở timestamp là OBS; tất cả sound, keyframe, màu cụ thể và easing trong công thức là REC. Không suy creator dùng đúng công cụ/preset này.
+
+
+ID
+	Pattern
+	Tổ hợp
+	Tự động hóa
+	P01
+	Keyword highlight
+	T04 + M05 + S06
+	Toàn phần khi keyword và timing được duyệt
+	P02
+	Typewriter prompt
+	T03 + M14 + S08
+	Renderer toàn phần
+	P03
+	Slide title
+	T07 + M05 + S01
+	Toàn phần
+	P04
+	Blur chapter
+	T01 + M05 + S03
+	Toàn phần theo marker
+	P05
+	Checklist build
+	T02 + M14 + S10
+	Toàn phần với dữ liệu trạng thái
+	P06
+	Logo comparison / ranking
+	T13 + M15 + S07
+	Toàn phần cho animation
+	P07
+	Selection-frame emphasis
+	T13 + M14 + S11
+	Toàn phần bằng SVG/shape. V1 ~00:46 và ~01:22 có motif khung chọn
+	P08
+	Document + presenter PIP
+	T07 + M14 + S02
+	Toàn phần sau khi có asset
+	P09
+	Product spec callout
+	T13 + M16 + S07
+	Bán phần khi tracking
+	P10
+	Behind-subject title
+	T08 + M07 + S01
+	Bán tự động
+	P11
+	Punch-in point
+	T04 + M11 + S05
+	Toàn phần renderer, chọn accent bán phần. V2 00:58.7 chỉ xác minh cut sang khung gần.
+	P12
+	Before / after comparison
+	T13 + M05 + S02
+	Toàn phần bố cục
+	
+
+Mười hai công thức mẫu
+P01 — Keyword highlight
+Công thức: T04 + M05 + S06
+Timeline / thông số: REC f0 scale .86/alpha0 → f3 1.06/1 → f7 1; giữ ít nhất 18f. SFX peak tại f3 hoặc first-legible marker đã chọn.
+Điều kiện / điều chỉnh: Một keyword/kết quả, không mỗi từ. Giảm overshoot tới 1.02 cho tone nghiêm túc; đổi S06 thành S07 hoặc bỏ âm.
+Khả năng tự động hóa / tham chiếu: Toàn phần khi keyword và timing được duyệt; chưa xác minh bounce/SFX gốc.
+P02 — Typewriter prompt
+Công thức: T03 + M14 + S08
+Timeline / thông số: REC 1–2f/grapheme, card vào trước 6f; typing theo burst 3–6 ký tự, kết thúc trước caret tắt.
+Điều kiện / điều chỉnh: Prompt/lệnh ngắn; giới hạn số chữ theo thời gian đọc. Tắt typing khi voice dày.
+Khả năng tự động hóa / tham chiếu: Renderer toàn phần; transcript/chọn câu cần review. V1 opening cho thấy chữ hiện từng phần, không xác nhận tiếng gõ.
+P03 — Slide title
+Công thức: T07 + M05 + S01
+Timeline / thông số: REC y+24→0 và opacity0→1 trong 10f ease-out; mask mở 8f; whoosh apex ở khoảng chuyển nhanh nhất.
+Điều kiện / điều chỉnh: Mở mục/giới thiệu. Giảm displacement nếu title lớn hoặc sát mặt.
+Khả năng tự động hóa / tham chiếu: Toàn phần; motion blur chỉ bật khi cần, không blur frame giữ.
+P04 — Blur chapter
+Công thức: T01 + M05 + S03
+Timeline / thông số: REC blur nền 0→18px tại 1080p trong 8f + wash trắng 0→.65; title vào sau 2f; reverse whoosh kết thúc tại title readable.
+Điều kiện / điều chỉnh: Chuyển ý trừu tượng, không chồng diagram cần đọc. Giữ chapter ngắn rồi trở lại footage.
+Khả năng tự động hóa / tham chiếu: Toàn phần theo marker; visual tham chiếu V2 ~00:12, ~01:02. Âm là REC.
+P05 — Checklist build
+Công thức: T02 + M14 + S10
+Timeline / thông số: REC card vào 9f; mỗi hàng opacity0→1/y+12→0 trong 6f; stagger 4f; tick khi checkbox đổi trạng thái.
+Điều kiện / điều chỉnh: Giải thích quy trình hoặc kiểm thử. Tốc độ theo lời, không tự suy “đã hoàn tất” nếu chưa có dữ liệu.
+Khả năng tự động hóa / tham chiếu: Toàn phần với dữ liệu trạng thái; V1 ~00:49–00:52 có checklist, SFX chưa xác minh.
+P06 — Logo comparison / ranking
+Công thức: T13 + M15 + S07
+Timeline / thông số: REC ba logo vào cách 4f, nhãn hiện sau 6f; số xếp hạng chỉ render khi nội dung có căn cứ/được ghi là ý kiến.
+Điều kiện / điều chỉnh: So sánh công cụ. Giữ kích thước logo cân quang học, label đủ rõ và quyền logo phù hợp.
+Khả năng tự động hóa / tham chiếu: Toàn phần cho animation; nội dung ranking cần duyệt. V2 ~00:19–00:25 là tham chiếu bố cục.
+P07 — Selection-frame emphasis
+Công thức: T13 + M14 + S11
+Timeline / thông số: REC plate theo text bbox + padding 14×8px; viền và handle vào 5f; text có trước hoặc đồng thời; click tại frame chọn.
+Điều kiện / điều chỉnh: Nêu ví dụ editing/đánh dấu ý chính. Không trình bày là thao tác phần mềm thật khi chỉ minh họa.
+Khả năng tự động hóa / tham chiếu: Toàn phần bằng SVG/shape. V1 ~00:46 và ~01:22 có motif khung chọn; âm REC.
+P08 — Document + presenter PIP
+Công thức: T07 + M14 + S02
+Timeline / thông số: REC screenshot card scale .96→1/alpha0→1 trong 10f; PIP crop bo góc ổn định; caption gắn dưới đúng ý.
+Điều kiện / điều chỉnh: Chứng minh ví dụ UI/repo; tên repo/claim phải đọc và kiểm riêng nếu dùng làm thông tin.
+Khả năng tự động hóa / tham chiếu: Toàn phần sau khi có asset; V2 ~00:39–00:43 và V1 knowledge cards có PIP. Không xác nhận nội dung repo đúng.
+P09 — Product spec callout
+Công thức: T13 + M16 + S07
+Timeline / thông số: REC anchor tĩnh hoặc tracked → line 6f → label 8f; giữ trong vùng sản phẩm; voice đi trước spec hoặc cùng thời điểm.
+Điều kiện / điều chỉnh: B-roll sản phẩm, chỉ hiển thị thông số có nguồn. V2 ~01:22 có callout; không coi quảng cáo là kiểm chứng công suất.
+Khả năng tự động hóa / tham chiếu: Bán phần khi tracking; toàn phần với tọa độ đã duyệt.
+P10 — Behind-subject title
+Công thức: T08 + M07 + S01
+Timeline / thông số: REC foreground matte trên text; parallax 12–24px/60f; whoosh chỉ ở lúc title vào, không theo mọi dao động.
+Điều kiện / điều chỉnh: Shot tách chủ thể sạch và title ngắn; tóc/motion blur cần duyệt.
+Khả năng tự động hóa / tham chiếu: Bán tự động; không thấy bằng chứng pattern này trong hai mẫu.
+P11 — Punch-in point
+Công thức: T04 + M11 + S05
+Timeline / thông số: REC crop1→1.06 trong 8f; keyword pop nhẹ; impact mức nhỏ tại peak hoặc bỏ SFX nếu giọng đủ nhấn.
+Điều kiện / điều chỉnh: Một phát biểu quan trọng. Không zoom vào crop quá hẹp hoặc phóng footage 576p quá nhiều.
+Khả năng tự động hóa / tham chiếu: Toàn phần renderer, chọn accent bán phần. V2 00:58.7 chỉ xác minh cut sang khung gần.
+P12 — Before / after comparison
+Công thức: T13 + M05 + S02
+Timeline / thông số: REC hai/4 panel hiện stagger 4f; label Gốc/AI edit luôn cùng vai trò vị trí; cut/reveal 8f.
+Điều kiện / điều chỉnh: Chứng minh khác biệt hình ảnh với nội dung tương đương. Không đổi màu/zoom để tạo so sánh sai lệch.
+Khả năng tự động hóa / tham chiếu: Toàn phần bố cục; ý nghĩa và công bằng so sánh cần duyệt. V1 ~01:01 có grid so sánh.
+Bộ luật chọn pattern cho AI
+REC 1. Mỗi đoạn phải có mục đích: hook, định nghĩa, ví dụ, so sánh, bằng chứng hoặc CTA. Chỉ chọn pattern có chức năng tương ứng.
+REC 2. Một vùng hình chỉ có một accent chính. Trong khoảng ±150ms quanh accent, tránh thêm hai transient SFX cạnh tranh; có thể dùng một cue cho nhóm card.
+REC 3. Khi voice, caption và diagram cùng có mặt, caption ngắn hơn; diagram cung cấp quan hệ, không lặp nguyên bài nói. Ưu tiên sửa nội dung/dàn trang trước khi thêm animation.
+REC 4. Nhịp lời và thời gian đọc có ưu tiên cao hơn nhịp nhạc. Không trim hết breath/pause nếu mất tự nhiên. Không dùng mốc 2 giây/3 giây như luật bắt buộc cho mọi shot.
+REC 5. Giữ màu accent, độ bo góc, chiều vào và khoảng stagger trong style token. Thay layout theo ý nghĩa, không đổi style ngẫu nhiên.
+REC 6. Nếu thiếu asset hoặc confidence thấp: fallback caption đơn giản + footage gốc; ghi reason, không tự tạo bằng chứng, ranking hoặc công suất.
+Ví dụ storyboard 12 giây — đề xuất mới
+
+
+Khoảng
+	Nội dung giả định
+	Pattern
+	Điểm duyệt
+	0–3s
+	Một câu hook về quy trình dựng
+	P01
+	Keyword không che mặt; đủ thời gian đọc.
+	3–7s
+	Ba bước: chép lời, dàn chữ, kiểm âm
+	P05
+	Trạng thái là mô tả quy trình, không giả kết quả đã chạy.
+	7–10s
+	Đặt footage và kết quả cạnh nhau
+	P12
+	Cùng nội dung và mức loudness.
+	10–12s
+	CTA xem bộ quy tắc
+	P03
+	CTA ngắn, không thêm nhiều sound.
+	
+
+Đây là storyboard thử và preset có thể lập trình; chưa render hoặc chứng minh tăng retention. Đo hiệu quả bằng phiên bản A/B có cùng nội dung và phân phối tương đương nếu triển khai thực tế.
+Nguồn và trạng thái kiểm chứng
+AE_EASE — Adobe — Speed and Graph Editor
+REM_INTERP — Remotion — interpolate()
+REM_SPRING — Remotion — spring()
+REM_CAP — Remotion — Captions API
+FFMPEG — FFmpeg — Filters reference
+Các nguồn trên được mở hoặc kiểm tra qua tìm kiếm web trong phiên làm việc ngày 15/11/2026. Nguồn xác minh cơ chế/tính năng; thông số thẩm mỹ là đề xuất của bản nghiên cứu. Chưa chạy các preset trong After Effects, Premiere, CapCut hoặc Remotion.
